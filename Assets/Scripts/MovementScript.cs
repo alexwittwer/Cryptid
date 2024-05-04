@@ -29,15 +29,17 @@ public class MovementScript : MonoBehaviour
     {
         direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-        if (direction.x != 0)
+        if (direction.x != 0 || direction.y != 0)
         {
             changeAnimationState(_RUN);
         }
-        else
+        else if (isAnimationPlaying(_SMASH))
         {
             changeAnimationState(_SMASH);
+        } else
+        {
+            changeAnimationState(_IDLE);
         }
-
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
