@@ -28,13 +28,6 @@ public class MovementScript : MonoBehaviour
     void Update()
     {
         direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-    }
-
-    void FixedUpdate()
-    {
-       // Movement
-        rb.velocity = new Vector2(direction.x * speed * Time.fixedDeltaTime, rb.velocity.y * speed * Time.fixedDeltaTime);
-        Debug.Log(rb.velocity);
 
         if (direction.x != 0)
         {
@@ -44,6 +37,14 @@ public class MovementScript : MonoBehaviour
         {
             changeAnimationState(_IDLE);
         }
+    }
+
+    void FixedUpdate()
+    {
+       // Movement
+        rb.velocity = new Vector2(direction.x * speed * Time.fixedDeltaTime, direction.y * speed * Time.fixedDeltaTime);
+
+
 
         flip();
     }
