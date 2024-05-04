@@ -13,7 +13,7 @@ public class MovementScript : MonoBehaviour
     private string currentState;
     const string _IDLE = "Player_Sit";
     const string _RUN = "Player_Run";
-    const string _FIRE = "Player_Smash";
+    const string _SMASH = "Player_Smash";
 
     // Start is called before the first frame update
     void Start()
@@ -35,8 +35,15 @@ public class MovementScript : MonoBehaviour
         }
         else
         {
-            changeAnimationState(_IDLE);
+            changeAnimationState(_SMASH);
         }
+
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            changeAnimationState(_SMASH);
+        }
+        
     }
 
     void FixedUpdate()
