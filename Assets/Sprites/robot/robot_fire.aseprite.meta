@@ -1,0 +1,447 @@
+fileFormatVersion: 2
+guid: f3c63fcbbcacea93d8f7e32a702aa0be
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: robot_fire_Frame_0
+    originalName: 
+    pivot: {x: 0.35999998, y: -1.4117647}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 60
+      y: 47
+      width: 25
+      height: 34
+    spriteID: 2c616607a7e94017a8714652a029262b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 5, y: -1}
+  - name: robot_fire_Frame_1
+    originalName: 
+    pivot: {x: 0.35999998, y: -1.3714286}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 60
+      y: 4
+      width: 25
+      height: 35
+    spriteID: 28252f2f8e5f057af8e7d82a65a59d40
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 60, y: 4}
+  - name: robot_fire_Frame_2
+    originalName: 
+    pivot: {x: 0.35999998, y: -1.4117647}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 60
+      y: 89
+      width: 25
+      height: 34
+    spriteID: d0e7fd46bc83004428d42bd888db7734
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 60, y: 89}
+  - name: robot_fire_Frame_3
+    originalName: 
+    pivot: {x: 0.35999998, y: -1.4117647}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 60
+      y: 131
+      width: 25
+      height: 34
+    spriteID: dfc87ccdec1344999b1a5868c97d0e87
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 60, y: 131}
+  - name: robot_fire_Frame_4
+    originalName: 
+    pivot: {x: 0.3846154, y: -1.4117647}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 214
+      width: 26
+      height: 34
+    spriteID: 91c10a8928482d0288565fb8d1f17d5f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 214}
+  - name: robot_fire_Frame_5
+    originalName: 
+    pivot: {x: 0.35999998, y: -1.4117647}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 60
+      y: 173
+      width: 25
+      height: 34
+    spriteID: a659f0d6ddafd49d99f16b9f5c8d4d4b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 60, y: 173}
+  - name: robot_fire_Frame_6
+    originalName: 
+    pivot: {x: 0.27272728, y: -1.4117647}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 172
+      width: 33
+      height: 34
+    spriteID: 0ffa165a3923c4314b9ab4a58404b484
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 172}
+  - name: robot_fire_Frame_7
+    originalName: 
+    pivot: {x: 0.21052632, y: -1.4545455}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 131
+      width: 38
+      height: 33
+    spriteID: e987df0e8b617529f8f02559d2459078
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 131}
+  - name: robot_fire_Frame_8
+    originalName: 
+    pivot: {x: 0.21276595, y: -1.4117647}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 89
+      width: 47
+      height: 34
+    spriteID: ad5fb3c8330d3f6a59f9ad3af3f1fbe6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 89}
+  - name: robot_fire_Frame_9
+    originalName: 
+    pivot: {x: 0.25, y: -1.4117647}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 47
+      width: 48
+      height: 34
+    spriteID: 712a97d33cf933507888462739724b4e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 47}
+  - name: robot_fire_Frame_10
+    originalName: 
+    pivot: {x: 0.22916667, y: -1.3714286}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 48
+      height: 35
+    spriteID: 8084d2419c0097d81958b0bdc99a6ce9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: -1922326073
+    name: robot_fire
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: robot_fire_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 128
+        height: 128
+      spriteId: 2c616607a7e94017a8714652a029262b
+    - name: robot_fire_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 55
+        y: 48
+        width: 25
+        height: 35
+      spriteId: 28252f2f8e5f057af8e7d82a65a59d40
+    - name: robot_fire_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 55
+        y: 48
+        width: 25
+        height: 34
+      spriteId: d0e7fd46bc83004428d42bd888db7734
+    - name: robot_fire_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 55
+        y: 48
+        width: 25
+        height: 34
+      spriteId: dfc87ccdec1344999b1a5868c97d0e87
+    - name: robot_fire_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 54
+        y: 48
+        width: 26
+        height: 34
+      spriteId: 91c10a8928482d0288565fb8d1f17d5f
+    - name: robot_fire_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 55
+        y: 48
+        width: 25
+        height: 34
+      spriteId: a659f0d6ddafd49d99f16b9f5c8d4d4b
+    - name: robot_fire_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 55
+        y: 48
+        width: 33
+        height: 34
+      spriteId: 0ffa165a3923c4314b9ab4a58404b484
+    - name: robot_fire_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 56
+        y: 48
+        width: 38
+        height: 33
+      spriteId: e987df0e8b617529f8f02559d2459078
+    - name: robot_fire_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 54
+        y: 48
+        width: 47
+        height: 34
+      spriteId: ad5fb3c8330d3f6a59f9ad3af3f1fbe6
+    - name: robot_fire_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 52
+        y: 48
+        width: 48
+        height: 34
+      spriteId: 712a97d33cf933507888462739724b4e
+    - name: robot_fire_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 53
+        y: 48
+        width: 48
+        height: 35
+      spriteId: 8084d2419c0097d81958b0bdc99a6ce9
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  generatePhysicsShape: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 128, y: 128}
