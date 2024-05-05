@@ -11,7 +11,7 @@ public class MovementScript : MonoBehaviour
 
     public Animator anim;
     private string currentState;
-    const string _IDLE = "Player_Sit";
+    const string _IDLE = "Player_Idle";
     const string _RUN = "Player_Run";
     const string _SMASH = "Player_Smash";
 
