@@ -27,6 +27,12 @@ public class MovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            changeAnimationState(_SMASH);
+            return;
+        }
+
         direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
         if (direction.x != 0 || direction.y != 0)
@@ -41,10 +47,7 @@ public class MovementScript : MonoBehaviour
             changeAnimationState(_IDLE);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            changeAnimationState(_SMASH);
-        }
+
         
     }
 
@@ -52,8 +55,6 @@ public class MovementScript : MonoBehaviour
     {
        // Movement
         rb.velocity = new Vector2(direction.x * speed * Time.fixedDeltaTime, direction.y * speed * Time.fixedDeltaTime);
-
-
 
         flip();
     }
