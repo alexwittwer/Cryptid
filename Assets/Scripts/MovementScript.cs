@@ -19,7 +19,7 @@ public class MovementScript : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        sr = GameObject.FindGameObjectWithTag("PlayerSprite").GetComponent<SpriteRenderer>();
+        sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         rb.freezeRotation = true;
     }
