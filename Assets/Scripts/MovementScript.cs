@@ -42,18 +42,24 @@ public class MovementScript : MonoBehaviour
         else if (isAnimationPlaying(_SMASH))
         {
             changeAnimationState(_SMASH);
-        } else
+        }
+        else
         {
             changeAnimationState(_IDLE);
         }
 
 
-        
+
     }
 
     void FixedUpdate()
     {
-       // Movement
+        if (DialogueManager.GetInstance().isDialogueActive)
+        {
+            rb.velocity = new Vector2(0, 0);
+            return;
+        }
+        // Movement
         rb.velocity = new Vector2(direction.x * speed * Time.fixedDeltaTime, direction.y * speed * Time.fixedDeltaTime);
 
         flip();

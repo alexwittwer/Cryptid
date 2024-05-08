@@ -9,10 +9,11 @@ public class DialogueManager : MonoBehaviour
     [Header("Dialogue Manager")]
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private GameObject continueIcon;
     private static DialogueManager instance;// Singleton instance
 
     private Story currentStory;
-    private bool isDialogueActive;
+    public bool isDialogueActive { get; private set; }
 
     private void Awake()
     {
@@ -29,11 +30,21 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         isDialogueActive = false;
+        continueIcon.SetActive(true);
         dialoguePanel.SetActive(false);
     }
 
     private void Update()
     {
+        if (currentStory && currentStory.canContinue)
+        {
+            continueIcon.SetActive(true);
+        }
+        else if (currentStory && !currentStory.canContinue)
+        {
+            continueIcon.SetActive(false);
+        }
+
         if (!isDialogueActive)
         {
             return;
@@ -48,7 +59,7 @@ public class DialogueManager : MonoBehaviour
             }
             else
             {
-                ExitDialogue();
+                StartCoroutine(ExitDialogue());
             }
         }
     }
@@ -67,8 +78,10 @@ public class DialogueManager : MonoBehaviour
 
     }
 
-    private void ExitDialogue()
+    private IEnumerator ExitDialogue()
     {
+        yield return new WaitForSeconds(0.2f);
+
         dialoguePanel.SetActive(false);
         isDialogueActive = false;
         dialogueText.text = "";
@@ -83,7 +96,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            ExitDialogue();
+            StartCoroutine(ExitDialogue());
         }
     }
 
