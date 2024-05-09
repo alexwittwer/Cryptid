@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class MovementScript : MonoBehaviour
 {
-    public float speed = 200f;
-    public Rigidbody2D rb;
-    public SpriteRenderer sr;
+    [Header("Movement Variables")]
+    [SerializeField] private float speed = 50f;
+    [Header("Components")]
+    [SerializeField] public Rigidbody2D rb;
+    [SerializeField] public SpriteRenderer sr;
     private Vector2 direction;
     void Start()
     {
@@ -23,6 +25,7 @@ public class MovementScript : MonoBehaviour
 
     void FixedUpdate()
     {
+
         if (DialogueManager.GetInstance().isDialogueActive)
         {
             rb.velocity = new Vector2(0, 0);
@@ -30,10 +33,6 @@ public class MovementScript : MonoBehaviour
         }
         // Movement
         rb.velocity = new Vector2(direction.x * speed * Time.fixedDeltaTime, direction.y * speed * Time.fixedDeltaTime);
-
+        direction.Normalize();
     }
-
-
-
-
 }
