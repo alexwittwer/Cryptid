@@ -74,8 +74,6 @@ public class DialogueManager : MonoBehaviour
         currentStory = new Story(inkJSON.text);
         isDialogueActive = true;
         dialoguePanel.SetActive(true);
-        ContinueStory(currentStory);
-
     }
 
     private IEnumerator ExitDialogue()
@@ -87,7 +85,7 @@ public class DialogueManager : MonoBehaviour
         dialogueText.text = "";
     }
 
-    private void ContinueStory(Story currentStory)
+    public void ContinueStory()
     {
         if (currentStory.canContinue)
         {

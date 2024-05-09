@@ -4,56 +4,28 @@ using UnityEngine;
 
 public class MovementScript : MonoBehaviour
 {
-    public float speed = 200f;
-    public Rigidbody2D rb;
-    public SpriteRenderer sr;
+    [Header("Movement Variables")]
+    [SerializeField] private float speed = 50f;
+    [Header("Components")]
+    [SerializeField] public Rigidbody2D rb;
+    [SerializeField] public SpriteRenderer sr;
     private Vector2 direction;
-
-    public Animator anim;
-    private string currentState;
-    const string _IDLE = "Player_Sit";
-    const string _RUN = "Player_Run";
-    const string _SMASH = "Player_Smash";
-
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
-        anim = GetComponent<Animator>();
         rb.freezeRotation = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            changeAnimationState(_SMASH);
-            return;
-        }
-
         direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-
-        if (direction.x != 0 || direction.y != 0)
-        {
-            changeAnimationState(_RUN);
-        }
-        else if (isAnimationPlaying(_SMASH))
-        {
-            changeAnimationState(_SMASH);
-        }
-        else
-        {
-            changeAnimationState(_IDLE);
-        }
-
-
-
     }
 
     void FixedUpdate()
     {
+
         if (DialogueManager.GetInstance().isDialogueActive)
         {
             rb.velocity = new Vector2(0, 0);
@@ -61,34 +33,6 @@ public class MovementScript : MonoBehaviour
         }
         // Movement
         rb.velocity = new Vector2(direction.x * speed * Time.fixedDeltaTime, direction.y * speed * Time.fixedDeltaTime);
-
-        flip();
-    }
-
-
-    void flip()
-    {
-        if (rb.velocity.x > 0)
-        {
-            sr.flipX = false;
-        }
-        else if (rb.velocity.x < 0)
-        {
-            sr.flipX = true;
-        }
-    }
-
-    private void changeAnimationState(string newState)
-    {
-        if (currentState == newState) return;
-
-        anim.Play(newState);
-
-        currentState = newState;
-    }
-
-    private bool isAnimationPlaying(string stateName)
-    {
-        return anim.GetCurrentAnimatorStateInfo(0).IsName(stateName) && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f;
+        direction.Normalize();
     }
 }
