@@ -10,8 +10,6 @@ public class AnimationScript : MonoBehaviour
     [SerializeField] public Animator anim;
     [SerializeField] public SpriteRenderer sr;
     private string currentState;
-    private bool isAttacking = false;
-    private bool isIdle = true;
     private KeyCode lastKey { get; set; }
     const string _IDLEU = "Player_Idle_Up";
     const string _RUNU = "Player_Run_Up";
@@ -31,15 +29,12 @@ public class AnimationScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isAnimationPlaying(_ATTACKD) || isAnimationPlaying(_ATTACKS) || isAnimationPlaying(_ATTACKU) || Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            isAttacking = true;
             changeAnimationState(_ATTACKS);
-            return;
         }
         else
         {
-            isAttacking = false;
             if (Input.GetKey(KeyCode.W))
             {
                 changeAnimationState(_RUNU);
