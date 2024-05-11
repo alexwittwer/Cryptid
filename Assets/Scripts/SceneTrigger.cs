@@ -5,7 +5,7 @@ using UnityEngine;
 public class SceneTrigger : MonoBehaviour
 {
     [SerializeField] private string sceneName;
-
+    [SerializeField] private Vector2 playerPosition;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

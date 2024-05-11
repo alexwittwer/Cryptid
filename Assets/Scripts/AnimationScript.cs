@@ -35,36 +35,43 @@ public class AnimationScript : MonoBehaviour
         }
         else
         {
-            if (Input.GetKey(KeyCode.W))
+            if (InputManager.movement.x != 0 || InputManager.movement.y != 0)
             {
-                changeAnimationState(_RUNU);
-                lastKey = KeyCode.W;
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                changeAnimationState(_RUND);
-                lastKey = KeyCode.S;
-            }
-            else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
-            {
-                changeAnimationState(_RUNS);
-                lastKey = KeyCode.D;
+                if (InputManager.movement.x > 0)
+                {
+                    sr.flipX = false;
+                }
+                else if (InputManager.movement.x < 0)
+                {
+                    sr.flipX = true;
+                }
+                if (InputManager.movement.y > 0)
+                {
+                    changeAnimationState(_RUNU);
+                }
+                else if (InputManager.movement.y < 0)
+                {
+                    changeAnimationState(_RUND);
+                }
+                else
+                {
+                    changeAnimationState(_RUNS);
+                }
             }
             else
             {
-                if (lastKey == KeyCode.W)
+                if (InputManager.movement.y > 0)
                 {
                     changeAnimationState(_IDLEU);
                 }
-                else if (lastKey == KeyCode.S)
+                else if (InputManager.movement.y < 0)
                 {
                     changeAnimationState(_IDLED);
                 }
-                else if (lastKey == KeyCode.D)
+                else
                 {
                     changeAnimationState(_IDLES);
                 }
-
             }
         }
     }
