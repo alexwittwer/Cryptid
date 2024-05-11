@@ -9,7 +9,6 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
-        GlobalPlayerPosition playerPosition = ScriptableObject.CreateInstance<GlobalPlayerPosition>();
 
         player.transform.position = GlobalPlayerPosition.PlayerPositionLocation;
     }
