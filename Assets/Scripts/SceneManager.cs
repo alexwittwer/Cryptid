@@ -6,6 +6,8 @@ using UnityEngine;
 public class SceneManager : MonoBehaviour
 {
     public static SceneManager instance;
+    [SerializeField] private GameObject player;
+    [SerializeField] private PlayerPostionBetweenScenes playerPosition;
     [SerializeField] private GameObject sceneTransition;
     private Animator anim;
 
@@ -32,6 +34,8 @@ public class SceneManager : MonoBehaviour
         anim.SetTrigger("Start");
         yield return new WaitForSeconds(1f);
         UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+        playerPosition.SavePosition(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        yield return new WaitForSeconds(1f);
         anim.SetTrigger("End");
     }
 

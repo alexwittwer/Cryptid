@@ -13,8 +13,6 @@ public class MovementScript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
-
-        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
