@@ -29,49 +29,42 @@ public class AnimationScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (InputManager.movement.x != 0 || InputManager.movement.y != 0)
         {
-            changeAnimationState(_ATTACKS);
-        }
-        else
-        {
-            if (InputManager.movement.x != 0 || InputManager.movement.y != 0)
+            if (InputManager.movement.x > 0)
             {
-                if (InputManager.movement.x > 0)
-                {
-                    sr.flipX = false;
-                }
-                else if (InputManager.movement.x < 0)
-                {
-                    sr.flipX = true;
-                }
-                if (InputManager.movement.y > 0)
-                {
-                    changeAnimationState(_RUNU);
-                }
-                else if (InputManager.movement.y < 0)
-                {
-                    changeAnimationState(_RUND);
-                }
-                else
-                {
-                    changeAnimationState(_RUNS);
-                }
+                sr.flipX = false;
+            }
+            else if (InputManager.movement.x < 0)
+            {
+                sr.flipX = true;
+            }
+            if (InputManager.movement.y > 0)
+            {
+                changeAnimationState(_RUNU);
+            }
+            else if (InputManager.movement.y < 0)
+            {
+                changeAnimationState(_RUND);
             }
             else
             {
-                if (InputManager.movement.y > 0)
-                {
-                    changeAnimationState(_IDLEU);
-                }
-                else if (InputManager.movement.y < 0)
-                {
-                    changeAnimationState(_IDLED);
-                }
-                else
-                {
-                    changeAnimationState(_IDLES);
-                }
+                changeAnimationState(_RUNS);
+            }
+        }
+        else
+        {
+            if (InputManager.movement.y > 0)
+            {
+                changeAnimationState(_IDLEU);
+            }
+            else if (InputManager.movement.y < 0)
+            {
+                changeAnimationState(_IDLED);
+            }
+            else
+            {
+                changeAnimationState(_IDLES);
             }
         }
     }

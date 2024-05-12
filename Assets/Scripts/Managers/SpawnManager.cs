@@ -9,14 +9,9 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
-
-        player.transform.position = GlobalPlayerPosition.PlayerPositionLocation;
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        if (GlobalPlayerPosition.PlayerPositionLocation != Vector3.zero)
+        {
+            player.transform.position = GlobalPlayerPosition.PlayerPositionLocation;
+        }
     }
 }
