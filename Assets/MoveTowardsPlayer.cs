@@ -37,7 +37,7 @@ public class MoveTowardsPlayer : MonoBehaviour
 
     private void CheckIfInRange()
     {
-        float distance = Vector2.Distance(transform.position, playerTransform.position)
+        float distance = Vector2.Distance(transform.position, playerTransform.position);
         playerInDistance = distance < distanceMax;
     }
 }
