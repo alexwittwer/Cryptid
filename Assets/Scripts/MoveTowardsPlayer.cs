@@ -5,14 +5,18 @@ using UnityEngine.UIElements;
 
 public class MoveTowardsPlayer : MonoBehaviour
 {
+    public BoxCollider2D playerHitbox;
     public Transform playerTransform;
+    public float playerOffset;
     public float speed = 0.2f;
     public float distanceMax = 10f;
     private bool playerInDistance = false;
-    
+
     void Start()
     {
+        playerHitbox = GameObject.FindWithTag("Player").GetComponent<BoxCollider2D>();
         playerTransform = GameObject.FindWithTag("Player").transform;
+        playerOffset = playerHitbox.offset.y;
     }
 
     // Update is called once per frame
@@ -32,7 +36,8 @@ public class MoveTowardsPlayer : MonoBehaviour
     private void MoveTowardsPlayerLogic()
     {
         float step = speed * Time.deltaTime;
-        transform.position = Vector2.MoveTowards(transform.position, playerTransform.position, step);
+        Vector3 playerWithOffset = playerTransform.position + new Vector3(0, playerOffset, 0);
+        transform.position = Vector2.MoveTowards(transform.position, playerWithOffset, step);
     }
 
     private void CheckIfInRange()

@@ -6,30 +6,25 @@ public class NPCHitboxColliderScript : MonoBehaviour
 {
     [SerializeField] private int damage = 1;
     [SerializeField] private GameObject parent;
+    public PlayerStats stats;
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("PlayerHitbox"))
         {
-            Debug.Log("NPC hit player");
+            other.gameObject.GetComponentInParent<PlayerCharacter>().TakeDamage(damage);
         }
 
         if (other.gameObject.CompareTag("Attack"))
         {
-            Debug.Log("NPC hit by player attack");
             parent.GetComponentInChildren<EnemyHealth>().ChangeHealth(-damage);
         }
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("PlayerHitbox"))
         {
-            Debug.Log("NPC is hitting player");
+            other.gameObject.GetComponentInParent<PlayerCharacter>().TakeDamage(damage);
         }
-    }
-
-    public int GetDamage()
-    {
-        return damage;
     }
 }

@@ -9,9 +9,9 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
-        if (GlobalPlayerPosition.PlayerPositionLocation != Vector3.zero)
+        if (GlobalPlayerPosition.PlayerPosition != Vector3.zero)
         {
-            player.transform.position = GlobalPlayerPosition.PlayerPositionLocation;
+            player.transform.position = GlobalPlayerPosition.PlayerPosition;
         }
     }
 }
