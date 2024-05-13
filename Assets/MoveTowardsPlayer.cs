@@ -5,10 +5,11 @@ using UnityEngine.UIElements;
 
 public class MoveTowardsPlayer : MonoBehaviour
 {
-    public BoxCollider2D playerHitbox;
+    public Transform playerTransform;
     public float speed = 0.2f;
     public float distanceMax - 10f;
     private bool playerInDistance = false;
+    
     void Start()
     {
         playerHitbox = GameObject.Find("Player").GetComponent<BoxCollider2D>();
@@ -31,26 +32,12 @@ public class MoveTowardsPlayer : MonoBehaviour
     private void MoveTowardsPlayerLogic()
     {
         float step = speed * Time.deltaTime;
-        float offsetY = playerHitbox.GetComponent<BoxCollider2D>().offset.y;
-        transform.position = Vector2.MoveTowards(transform.position, new Vector2(playerHitbox.transform.position.x, playerHitbox.transform.position.y + offsetY), step);
+        transform.position = Vector2.MoveTowards(transform.position, playerTransform.position, step);
     }
 
     private void CheckIfInRange()
     {
-        float currX;
-        float currY;
-        float playerX;
-        float playerY;
-
-        float distance = Mathf.sqrt(Mathf.pow((playerX - currX), 2) + Mathf.pow((playerY - currY), 2));
-
-        if (distance < distanceMax)
-        {
-            playerInDistance = true;
-        } else
-        {
-            playerInDistance = false;
-        }
-        
+        float distance = Vector2.Distance(transform.position, playerTransform.position)
+        playerInDistance = distance < distanceMax;
     }
 }
