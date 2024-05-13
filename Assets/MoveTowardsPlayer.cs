@@ -29,4 +29,16 @@ public class MoveTowardsPlayer : MonoBehaviour
         float offsetY = playerHitbox.GetComponent<BoxCollider2D>().offset.y;
         transform.position = Vector2.MoveTowards(transform.position, new Vector2(playerHitbox.transform.position.x, playerHitbox.transform.position.y + offsetY), speed * Time.deltaTime);
     }
+
+    private void CheckIfInRange()
+    {
+        float currX;
+        float currY;
+        float playerX;
+        float playerY;
+
+        float distance = Mathf.sqrt((playerX - currX) ** 2 + (playerY - currY) ** 2);
+
+        
+    }
 }
