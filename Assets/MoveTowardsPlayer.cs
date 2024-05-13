@@ -42,7 +42,7 @@ public class MoveTowardsPlayer : MonoBehaviour
         float playerX;
         float playerY;
 
-        float distance = Mathf.sqrt((playerX - currX) ** 2 + (playerY - currY) ** 2);
+        float distance = Mathf.sqrt(Mathf.pow((playerX - currX), 2) + Mathf.pow((playerY - currY), 2));
 
         if (distance < distanceMax)
         {
