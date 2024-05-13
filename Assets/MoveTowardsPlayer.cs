@@ -6,7 +6,6 @@ using UnityEngine.UIElements;
 public class MoveTowardsPlayer : MonoBehaviour
 {
     public BoxCollider2D playerHitbox;
-    public GameObject npc;
     public float speed = 0.2f;
     public float distanceMax - 10f;
     private bool playerInDistance = false;
@@ -31,8 +30,9 @@ public class MoveTowardsPlayer : MonoBehaviour
 
     private void MoveTowardsPlayerLogic()
     {
+        float step = speed * Time.deltaTime;
         float offsetY = playerHitbox.GetComponent<BoxCollider2D>().offset.y;
-        transform.position = Vector2.MoveTowards(transform.position, new Vector2(playerHitbox.transform.position.x, playerHitbox.transform.position.y + offsetY), speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, new Vector2(playerHitbox.transform.position.x, playerHitbox.transform.position.y + offsetY), step);
     }
 
     private void CheckIfInRange()
