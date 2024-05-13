@@ -8,6 +8,8 @@ public class MoveTowardsPlayer : MonoBehaviour
     public BoxCollider2D playerHitbox;
     public GameObject npc;
     public float speed = 0.2f;
+    public float distanceMax - 10f;
+    private bool playerInDistance = false;
     void Start()
     {
         playerHitbox = GameObject.Find("Player").GetComponent<BoxCollider2D>();
@@ -16,12 +18,15 @@ public class MoveTowardsPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        CheckIfInRange();
     }
 
     void FixedUpdate()
     {
-        MoveTowardsPlayerLogic();
+        if (playerInDistance)
+        {
+            MoveTowardsPlayerLogic();
+        }
     }
 
     private void MoveTowardsPlayerLogic()
@@ -39,6 +44,13 @@ public class MoveTowardsPlayer : MonoBehaviour
 
         float distance = Mathf.sqrt((playerX - currX) ** 2 + (playerY - currY) ** 2);
 
+        if (distance < distanceMax)
+        {
+            playerInDistance = true;
+        } else
+        {
+            playerInDistance = false;
+        }
         
     }
 }
