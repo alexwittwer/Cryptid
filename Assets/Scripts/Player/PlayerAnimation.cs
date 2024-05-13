@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class AnimationScript : MonoBehaviour
 {
@@ -11,65 +12,45 @@ public class AnimationScript : MonoBehaviour
     [SerializeField] public SpriteRenderer sr;
     private string currentState;
     private KeyCode lastKey { get; set; }
-    const string _IDLEU = "Player_Idle_Up";
-    const string _RUNU = "Player_Run_Up";
-    const string _IDLED = "Player_Idle_Down";
-    const string _RUND = "Player_Run_Down";
-    const string _IDLES = "Player_Idle_Side";
-    const string _RUNS = "Player_Run_Side";
-    const string _ATTACKS = "Player_Attack_Side";
-    const string _ATTACKU = "Player_Attack_Up";
-    const string _ATTACKD = "Player_Attack_Down";
+
+    private struct StateName
+    {
+        public const string IDLEU = "Player_Idle_Up";
+        public const string RUNU = "Player_Run_Up";
+        public const string IDLED = "Player_Idle_Down";
+        public const string RUND = "Player_Run_Down";
+        public const string IDLES = "Player_Idle_Side";
+        public const string RUNS = "Player_Run_Side";
+        public const string ATTACKS = "Player_Attack_Side";
+        public const string ATTACKU = "Player_Attack_Up";
+        public const string ATTACKD = "Player_Attack_Down";
+    }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         Flip();
-    }
+        GetLastKey();
 
-    void FixedUpdate()
-    {
-        if (InputManager.movement.x != 0 || InputManager.movement.y != 0)
+        if (InputManager.attack)
         {
-            if (InputManager.movement.x > 0)
-            {
-                sr.flipX = false;
-            }
-            else if (InputManager.movement.x < 0)
-            {
-                sr.flipX = true;
-            }
-            if (InputManager.movement.y > 0)
-            {
-                changeAnimationState(_RUNU);
-            }
-            else if (InputManager.movement.y < 0)
-            {
-                changeAnimationState(_RUND);
-            }
-            else
-            {
-                changeAnimationState(_RUNS);
-            }
+            AttackAnimation();
+            return;
         }
-        else
+        else if (InputManager.movement.x != 0 || InputManager.movement.y != 0)
         {
-            if (InputManager.movement.y > 0)
-            {
-                changeAnimationState(_IDLEU);
-            }
-            else if (InputManager.movement.y < 0)
-            {
-                changeAnimationState(_IDLED);
-            }
-            else
-            {
-                changeAnimationState(_IDLES);
-            }
+            Flip();
+            RunAnimation();
+            return;
+        }
+        else if (InputManager.movement.x == 0 && InputManager.movement.y == 0)
+        {
+            IdleAnimation();
+            return;
         }
     }
 
-    void changeAnimationState(string newState)
+    private void changeAnimationState(string newState)
     {
         if (currentState == newState) return;
 
@@ -83,16 +64,80 @@ public class AnimationScript : MonoBehaviour
         return anim.GetCurrentAnimatorStateInfo(0).IsName(stateName) && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f;
     }
 
-
-    void Flip()
+    private void AttackAnimation()
     {
-        if (rb.velocity.x > 0)
+        if (lastKey == KeyCode.W)
+        {
+            changeAnimationState(StateName.ATTACKU);
+        }
+        else if (lastKey == KeyCode.S)
+        {
+            changeAnimationState(StateName.ATTACKD);
+        }
+        else if (lastKey == KeyCode.A || lastKey == KeyCode.D)
+        {
+            changeAnimationState(StateName.ATTACKS);
+        }
+        else
+        {
+            changeAnimationState(StateName.ATTACKS);
+        }
+    }
+
+    private void IdleAnimation()
+    {
+        if (lastKey == KeyCode.W)
+        {
+            changeAnimationState(StateName.IDLEU);
+        }
+        else if (lastKey == KeyCode.S)
+        {
+            changeAnimationState(StateName.IDLED);
+        }
+        else if (lastKey == KeyCode.A || lastKey == KeyCode.D)
+        {
+            changeAnimationState(StateName.IDLES);
+        }
+    }
+
+    private void Flip()
+    {
+        if (InputManager.movement.x > 0)
         {
             sr.flipX = true;
         }
-        else if (rb.velocity.x < 0)
+        else if (InputManager.movement.x < 0)
         {
             sr.flipX = false;
         }
+    }
+
+    private void RunAnimation()
+    {
+        if (InputManager.movement.y > 0)
+        {
+            changeAnimationState(StateName.RUNU);
+        }
+        else if (InputManager.movement.y < 0)
+        {
+            changeAnimationState(StateName.RUND);
+        }
+        else
+        {
+            changeAnimationState(StateName.RUNS);
+        }
+    }
+
+    private void GetLastKey()
+    {
+        lastKey = Input.GetKey(KeyCode.W)
+        ? KeyCode.W
+        : Input.GetKey(KeyCode.S)
+        ? KeyCode.S
+        : Input.GetKey(KeyCode.A)
+        ? KeyCode.A
+        : Input.GetKey(KeyCode.D)
+        ? KeyCode.D
+        : lastKey;
     }
 }
