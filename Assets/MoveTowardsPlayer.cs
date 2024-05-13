@@ -12,7 +12,7 @@ public class MoveTowardsPlayer : MonoBehaviour
     
     void Start()
     {
-        playerHitbox = GameObject.Find("Player").GetComponent<BoxCollider2D>();
+        playerTransform = GameObject.FindWithTag("Player").transform;
     }
 
     // Update is called once per frame
