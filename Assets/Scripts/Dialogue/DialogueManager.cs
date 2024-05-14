@@ -52,15 +52,7 @@ public class DialogueManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (currentStory.canContinue)
-            {
-                string text = currentStory.Continue();
-                dialogueText.text = text;
-            }
-            else
-            {
-                StartCoroutine(ExitDialogue());
-            }
+            ContinueStory();
         }
     }
 

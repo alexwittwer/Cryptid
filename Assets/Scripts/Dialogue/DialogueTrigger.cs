@@ -38,7 +38,7 @@ public class NewBehaviourScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("PlayerHitbox"))
         {
             playerInRange = true;
         }
@@ -46,7 +46,7 @@ public class NewBehaviourScript : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("PlayerHitbox"))
         {
             playerInRange = false;
         }
