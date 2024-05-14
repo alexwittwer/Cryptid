@@ -4,7 +4,29 @@ using UnityEngine;
 using TMPro;
 using Ink.Runtime;
 
-public class DialogueManager : MonoBehaviour
+public interface IDialogueManager
+{
+    void EnterDialogue(TextAsset inkJSON);
+    void ContinueStory();
+}
+
+public interface IDialogueDisplay
+{
+    void ShowDialogue(string text);
+    void HideDialogue();
+}
+
+public interface IInputProvider
+{
+    bool GetKeyDown(KeyCode keyCode);
+}
+
+public interface ICoroutineRunner
+{
+    Coroutine StartCoroutine(IEnumerator routine);
+}
+
+public class DialogueManager : MonoBehaviour, IDialogueManager
 {
     [Header("Dialogue Manager")]
     [SerializeField] private GameObject dialoguePanel;
@@ -63,6 +85,7 @@ public class DialogueManager : MonoBehaviour
 
     public void EnterDialogue(TextAsset inkJSON)
     {
+        // Create a new Story object with the loaded ink JSON text
         currentStory = new Story(inkJSON.text);
         isDialogueActive = true;
         dialoguePanel.SetActive(true);
