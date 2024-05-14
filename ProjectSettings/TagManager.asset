@@ -6,6 +6,9 @@ TagManager:
   tags:
   - PlayerSprite
   - Enemy
+  - Attack
+  - HealthBarFilled
+  - PlayerHitbox
   layers:
   - Default
   - TransparentFX
