@@ -9,7 +9,7 @@ public class MoveTowardsPlayer : MonoBehaviour
     public Transform playerTransform;
     public float playerOffset;
     public float speed = 0.2f;
-    public float distanceMax = 10f;
+    public float distanceMax = .4f;
     private bool playerInDistance = false;
 
     void Start()
