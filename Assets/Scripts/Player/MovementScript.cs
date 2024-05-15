@@ -25,8 +25,10 @@ public class MovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (DialogueManager.GetInstance().isDialogueActive)
+        if (DialogueManager.GetInstance().isDialogueActive || InputManager.attack || InputManager.interact)
         {
+            movement.Set(0, 0);
+            rb.velocity = movement;
             return;
         }
         movement.Set(InputManager.movement.x, InputManager.movement.y);

@@ -25,15 +25,17 @@ public class InputManager : MonoBehaviour
     private void Update()
     {
         movement = _moveAction.ReadValue<Vector2>();
-    }
-
-    private void FixedUpdate()
-    {
-        _attackAction.performed += ctx => attack = true;
+        _attackAction.started += ctx => attack = true;
         _attackAction.canceled += ctx => attack = false;
 
-        _interactionAction.performed += ctx => interact = true;
-        _interactionAction.canceled += ctx => interact = false;
+        if (_interactionAction.triggered)
+        {
+            interact = true;
+        }
+        else
+        {
+            interact = false;
+        }
     }
 
 }

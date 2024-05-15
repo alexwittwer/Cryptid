@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 100
   _maxHealth: 100
-  _activeHealth: 100
+  _activeHealth: 85
   _isInvulnerable: 0

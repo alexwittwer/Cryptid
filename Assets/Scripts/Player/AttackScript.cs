@@ -19,7 +19,7 @@ public class AttackScript : MonoBehaviour
     }
     void Update()
     {
-        Flip();
+        setOffset();
         if (InputManager.attack && lastAttackTime <= 0)
         {
             lastAttackTime = attackCooldown;
@@ -37,17 +37,6 @@ public class AttackScript : MonoBehaviour
         StartCoroutine(DisableHitbox());
     }
 
-    void Flip()
-    {
-        if (InputManager.movement.x > 0)
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
-        else if (InputManager.movement.x < 0)
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-        }
-    }
 
     private IEnumerator DisableHitbox()
     {
@@ -64,8 +53,37 @@ public class AttackScript : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            Debug.Log("Player hit enemy");
+            collision.GetComponent<EnemyHealth>().ChangeHealth(-damage);
+        }
+    }
+
     public float GetDamage()
     {
         return damage;
+    }
+
+    private void setOffset()
+    {
+        if (InputManager.movement.x > 0)
+        {
+            hitbox.offset = new Vector2(0.25f, 0);
+        }
+        else if (InputManager.movement.x < 0)
+        {
+            hitbox.offset = new Vector2(-0.25f, 0);
+        }
+        else if (InputManager.movement.y > 0)
+        {
+            hitbox.offset = new Vector2(0, 0.25f);
+        }
+        else if (InputManager.movement.y < 0)
+        {
+            hitbox.offset = new Vector2(0, -0.25f);
+        }
     }
 }
