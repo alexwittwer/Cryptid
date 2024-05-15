@@ -6,8 +6,9 @@ using UnityEngine.Events;
 public class PlayerStats : ScriptableObject
 {
 
-    [SerializeField] private int _health = 100;
-    [SerializeField] private int _maxHealth = 100;
+    [SerializeField] private int _health = 12;
+    [SerializeField] private int _maxHealth = 12;
+    [SerializeField] private int _damage = 1;
     [SerializeField] private int _activeHealth;
     [SerializeField] private bool _isInvulnerable = false;
 
@@ -33,6 +34,18 @@ public class PlayerStats : ScriptableObject
         set
         {
             _isInvulnerable = value;
+        }
+    }
+
+    public int Damage
+    {
+        get
+        {
+            return _damage;
+        }
+        set
+        {
+            _damage = value;
         }
     }
 
