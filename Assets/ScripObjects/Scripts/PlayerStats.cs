@@ -20,7 +20,7 @@ public class PlayerStats : ScriptableObject
         set
         {
             _activeHealth = Math.Max(value, 0);
-            HealthChanged?.Invoke(_activeHealth);
+            EventHealthChanged?.Invoke(_activeHealth);
         }
     }
 
@@ -36,7 +36,7 @@ public class PlayerStats : ScriptableObject
         }
     }
 
-    public UnityAction<int> HealthChanged;
+    public UnityAction<int> EventHealthChanged;
 
     public void InitStats()
     {

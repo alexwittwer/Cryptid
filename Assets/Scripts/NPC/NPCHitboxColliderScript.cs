@@ -6,7 +6,6 @@ public class NPCHitboxColliderScript : MonoBehaviour
 {
     [SerializeField] private int damage = 1;
     [SerializeField] private GameObject parent;
-    public PlayerStats stats;
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("PlayerHitbox"))

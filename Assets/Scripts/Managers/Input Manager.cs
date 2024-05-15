@@ -7,21 +7,35 @@ public class InputManager : MonoBehaviour
 {
     public static Vector2 movement;
     public static bool attack;
+    public static bool interact;
     public KeyCode lastKey;
     private InputAction _attackAction;
+    private InputAction _interactionAction;
     private InputAction _moveAction;
     private PlayerInput _playerInput;
 
     private void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
-        _moveAction = _playerInput.actions["Move"];
         _attackAction = _playerInput.actions["Attack"];
+        _moveAction = _playerInput.actions["Move"];
+        _interactionAction = _playerInput.actions["Interact"];
     }
 
     private void Update()
     {
         movement = _moveAction.ReadValue<Vector2>();
-        attack = _attackAction.triggered;
+        _attackAction.started += ctx => attack = true;
+        _attackAction.canceled += ctx => attack = false;
+
+        if (_interactionAction.triggered)
+        {
+            interact = true;
+        }
+        else
+        {
+            interact = false;
+        }
     }
+
 }

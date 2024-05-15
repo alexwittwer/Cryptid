@@ -13,12 +13,12 @@ public class HealthBarUpdateScript : MonoBehaviour
 
     void OnEnable()
     {
-        stats.HealthChanged += UpdateHealthBar;
+        stats.EventHealthChanged += UpdateHealthBar;
     }
 
     void OnDisable()
     {
-        stats.HealthChanged -= UpdateHealthBar;
+        stats.EventHealthChanged -= UpdateHealthBar;
     }
 
     void UpdateHealthBar(int newHealthValue)

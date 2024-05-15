@@ -4,7 +4,29 @@ using UnityEngine;
 using TMPro;
 using Ink.Runtime;
 
-public class DialogueManager : MonoBehaviour
+public interface IDialogueManager
+{
+    void EnterDialogue(TextAsset inkJSON);
+    void ContinueStory();
+}
+
+public interface IDialogueDisplay
+{
+    void ShowDialogue(string text);
+    void HideDialogue();
+}
+
+public interface IInputProvider
+{
+    bool GetKeyDown(KeyCode keyCode);
+}
+
+public interface ICoroutineRunner
+{
+    Coroutine StartCoroutine(IEnumerator routine);
+}
+
+public class DialogueManager : MonoBehaviour, IDialogueManager
 {
     [Header("Dialogue Manager")]
     [SerializeField] private GameObject dialoguePanel;
@@ -36,13 +58,21 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        if (currentStory && currentStory.canContinue)
+        if (currentStory)
         {
-            continueIcon.SetActive(true);
-        }
-        else if (currentStory && !currentStory.canContinue)
-        {
-            continueIcon.SetActive(false);
+            if (currentStory.canContinue)
+            {
+                continueIcon.SetActive(true);
+            }
+            else
+            {
+                continueIcon.SetActive(false);
+            }
+
+            if (InputManager.interact)
+            {
+                ContinueStory();
+            }
         }
 
         if (!isDialogueActive)
@@ -50,10 +80,7 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            ContinueStory();
-        }
+
     }
 
     public static DialogueManager GetInstance()
@@ -63,6 +90,7 @@ public class DialogueManager : MonoBehaviour
 
     public void EnterDialogue(TextAsset inkJSON)
     {
+        // Create a new Story object with the loaded ink JSON text
         currentStory = new Story(inkJSON.text);
         isDialogueActive = true;
         dialoguePanel.SetActive(true);
@@ -74,7 +102,7 @@ public class DialogueManager : MonoBehaviour
 
         dialoguePanel.SetActive(false);
         isDialogueActive = false;
-        dialogueText.text = "";
+        dialogueText.text = null;
     }
 
     public void ContinueStory()
