@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -56,7 +57,11 @@ public class NPCHitbox : MonoBehaviour, IDamageable
 
         if (other.gameObject.CompareTag("Attack"))
         {
-            OnHit(other.GetComponent<IAttack>().Damage, other.GetComponent<IAttack>().KnockbackForce);
+            Vector2 _kbOther = other.GetComponent<IAttack>().KnockbackForce;
+            int _damage = other.GetComponent<IAttack>().Damage;
+            Vector2 _kb = new Vector2(Mathf.Sign(transform.position.x - other.transform.position.x) * _kbOther.x, Math.Sign(transform.position.y - other.transform.position.y) * _kbOther.y).normalized;
+
+            OnHit(_damage, _kb);
         }
     }
 

@@ -9,8 +9,19 @@ public class PlayerAttack : MonoBehaviour, IAttack
     [SerializeField] public BoxCollider2D Hitbox { get; set; }
     [SerializeField] private PlayerStats stats;
     public int Damage { get => stats.Damage; set => stats.Damage = value; }
-    public Vector2 KnockbackForce { get; set; }
+    public Vector2 KnockbackForce
+    {
+        get
+        {
+            return _knockbackForce;
+        }
+        set
+        {
+            _knockbackForce = new Vector2(value.x, value.y);
+        }
+    }
     private float attackCooldown = 0.5f;
+    [SerializeField] private Vector2 _knockbackForce = new Vector2(1f, 1f);
     private float lastAttackTime = 0f;
 
 
@@ -22,7 +33,7 @@ public class PlayerAttack : MonoBehaviour, IAttack
     {
         Damage = stats.Damage;
         Hitbox.enabled = false;
-        KnockbackForce = new Vector2(0.2f, 0.2f);
+        KnockbackForce = new Vector2(1f, 1f);
     }
 
     void Update()
