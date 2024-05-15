@@ -9,6 +9,8 @@ public class AttackScript : MonoBehaviour
     [Header("Attack Variables")]
     [SerializeField] private BoxCollider2D hitbox;
     [SerializeField] private float damage = 1f;
+    private float attackCooldown = 0.5f;
+    private float lastAttackTime = 0f;
 
 
     void Start()
@@ -18,9 +20,14 @@ public class AttackScript : MonoBehaviour
     void Update()
     {
         Flip();
-        if (InputManager.attack)
+        if (InputManager.attack && lastAttackTime <= 0)
         {
+            lastAttackTime = attackCooldown;
             Attack();
+        }
+        else
+        {
+            lastAttackTime -= Time.deltaTime;
         }
     }
 
@@ -44,7 +51,7 @@ public class AttackScript : MonoBehaviour
 
     private IEnumerator DisableHitbox()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
         hitbox.enabled = false;
     }
 

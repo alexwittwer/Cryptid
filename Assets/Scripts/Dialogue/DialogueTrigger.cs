@@ -22,7 +22,7 @@ public class NewBehaviourScript : MonoBehaviour
         if (playerInRange && !DialogueManager.GetInstance().isDialogueActive)
         {
             visualCue.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.E))
+            if (InputManager.interact)
             {
                 // Trigger Dialogue
                 DialogueManager.GetInstance().EnterDialogue(inkJSON);

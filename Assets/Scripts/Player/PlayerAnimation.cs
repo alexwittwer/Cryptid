@@ -7,11 +7,9 @@ using UnityEngine.InputSystem;
 public class AnimationScript : MonoBehaviour
 {
     [Header("Animation Script")]
-    [SerializeField] public Rigidbody2D rb;
     [SerializeField] public Animator anim;
-    [SerializeField] public SpriteRenderer sr;
-    private string currentState;
-    private KeyCode lastKey { get; set; }
+    [SerializeField] private KeyCode lastKey { get; set; }
+    [SerializeField] private string currentState;
 
     private struct StateName
     {
@@ -26,30 +24,27 @@ public class AnimationScript : MonoBehaviour
         public const string ATTACKD = "Player_Attack_Down";
     }
 
-    // Update is called once per frame
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
+
     private void Update()
     {
-        Flip();
         GetLastKey();
-
         if (InputManager.attack)
         {
             AttackAnimation();
-            return;
         }
-        else if (InputManager.movement.x != 0 || InputManager.movement.y != 0)
+        else if (InputManager.movement != Vector2.zero)
         {
-            Flip();
             RunAnimation();
-            return;
         }
-        else if (InputManager.movement.x == 0 && InputManager.movement.y == 0)
+        else
         {
             IdleAnimation();
-            return;
         }
     }
-
     private void changeAnimationState(string newState)
     {
         if (currentState == newState) return;
@@ -57,11 +52,6 @@ public class AnimationScript : MonoBehaviour
         anim.Play(newState);
 
         currentState = newState;
-    }
-
-    private bool isAnimationPlaying(string stateName)
-    {
-        return anim.GetCurrentAnimatorStateInfo(0).IsName(stateName) && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f;
     }
 
     private void AttackAnimation()
@@ -100,17 +90,6 @@ public class AnimationScript : MonoBehaviour
         }
     }
 
-    private void Flip()
-    {
-        if (InputManager.movement.x > 0)
-        {
-            sr.flipX = true;
-        }
-        else if (InputManager.movement.x < 0)
-        {
-            sr.flipX = false;
-        }
-    }
 
     private void RunAnimation()
     {
@@ -131,13 +110,13 @@ public class AnimationScript : MonoBehaviour
     private void GetLastKey()
     {
         lastKey = Input.GetKey(KeyCode.W)
-        ? KeyCode.W
-        : Input.GetKey(KeyCode.S)
-        ? KeyCode.S
-        : Input.GetKey(KeyCode.A)
-        ? KeyCode.A
-        : Input.GetKey(KeyCode.D)
-        ? KeyCode.D
-        : lastKey;
+            ? KeyCode.W
+            : Input.GetKey(KeyCode.S)
+            ? KeyCode.S
+            : Input.GetKey(KeyCode.A)
+            ? KeyCode.A
+            : Input.GetKey(KeyCode.D)
+            ? KeyCode.D
+            : lastKey;
     }
 }

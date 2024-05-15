@@ -58,13 +58,21 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
 
     private void Update()
     {
-        if (currentStory && currentStory.canContinue)
+        if (currentStory)
         {
-            continueIcon.SetActive(true);
-        }
-        else if (currentStory && !currentStory.canContinue)
-        {
-            continueIcon.SetActive(false);
+            if (currentStory.canContinue)
+            {
+                continueIcon.SetActive(true);
+            }
+            else
+            {
+                continueIcon.SetActive(false);
+            }
+
+            if (InputManager.interact)
+            {
+                ContinueStory();
+            }
         }
 
         if (!isDialogueActive)
@@ -72,10 +80,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            ContinueStory();
-        }
+
     }
 
     public static DialogueManager GetInstance()
@@ -97,7 +102,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
 
         dialoguePanel.SetActive(false);
         isDialogueActive = false;
-        dialogueText.text = "";
+        dialogueText.text = null;
     }
 
     public void ContinueStory()
