@@ -188,6 +188,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 4257333643428579981, guid: 4d56d2fa86a960abbaa9c4e270a2e129, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257333643428579981, guid: 4d56d2fa86a960abbaa9c4e270a2e129, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257333643428579981, guid: 4d56d2fa86a960abbaa9c4e270a2e129, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 6324353879787612700, guid: 4d56d2fa86a960abbaa9c4e270a2e129, type: 3}
       propertyPath: stats
       value: 
