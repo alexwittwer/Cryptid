@@ -8,21 +8,9 @@ using UnityEngine.Events;
 [CreateAssetMenu(fileName = "PlayerStats", menuName = "Scriptable Objects/Player Stats")]
 public class PlayerStats : ScriptableObject
 {
-<<<<<<< main
-
-<<<<<<< HEAD
-    [SerializeField] private int _health = 100;
-    [SerializeField] private int _maxHealth = 100;
-=======
     [SerializeField] private int _health = 12;
     [SerializeField] private int _maxHealth = 12;
     [SerializeField] private int _damage = 1;
->>>>>>> local
-=======
-    [SerializeField] private int _health = 12;
-    [SerializeField] private int _maxHealth = 12;
-    [SerializeField] private int _damage = 1;
->>>>>>> c7b1392d99b9dfad940947a33bf3776b669126f8
     [SerializeField] private int _activeHealth;
     [SerializeField] private bool _isInvulnerable = false;
 
@@ -71,14 +59,9 @@ public class PlayerStats : ScriptableObject
         }
     }
 
-<<<<<<< HEAD
-<<<<<<< main
-=======
     /// <summary>
     /// The damage dealt by the player.
     /// </summary>
-=======
->>>>>>> c7b1392d99b9dfad940947a33bf3776b669126f8
     public int Damage
     {
         get
@@ -90,16 +73,10 @@ public class PlayerStats : ScriptableObject
             _damage = value;
         }
     }
-<<<<<<< HEAD
-=======
-
-    public UnityAction<int> EventHealthChanged;
->>>>>>> c7b1392d99b9dfad940947a33bf3776b669126f8
 
     /// <summary>
     /// Event that is triggered when the player's health changes.
     /// </summary>
->>>>>>> local
     public UnityAction<int> EventHealthChanged;
     public UnityAction<int> EventMaxHealthChanged;
 
