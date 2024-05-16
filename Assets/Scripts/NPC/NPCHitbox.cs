@@ -23,6 +23,7 @@ public class NPCHitbox : MonoBehaviour, IDamageable
 
         if (!invulnerable)
         {
+            parent.GetComponent<IAnimateSprite>().OnHit();
             health -= damage;
             if (health <= 0)
             {
@@ -35,6 +36,7 @@ public class NPCHitbox : MonoBehaviour, IDamageable
     {
         if (!invulnerable)
         {
+            parent.GetComponent<IAnimateSprite>().OnHit();
             health -= damage;
             if (health <= 0)
             {
@@ -57,9 +59,8 @@ public class NPCHitbox : MonoBehaviour, IDamageable
 
         if (other.gameObject.CompareTag("Attack"))
         {
-            Vector2 _kbOther = other.GetComponent<IAttack>().KnockbackForce;
-            int _damage = other.GetComponent<IAttack>().Damage;
-            Vector2 _kb = new Vector2(Mathf.Sign(transform.position.x - other.transform.position.x) * _kbOther.x, Math.Sign(transform.position.y - other.transform.position.y) * _kbOther.y).normalized;
+            Vector2 _kb = GetKnockbackDirection(other);
+            int _damage = GetDamage(other);
 
             OnHit(_damage, _kb);
         }
@@ -71,5 +72,18 @@ public class NPCHitbox : MonoBehaviour, IDamageable
         {
             other.GetComponent<IDamageable>().OnHit(damage);
         }
+    }
+
+    private Vector2 GetKnockbackDirection(Collider2D other)
+    {
+        Vector2 _kbOther = other.GetComponent<IAttack>().KnockbackForce;
+        Vector2 _kb = new Vector2(Mathf.Sign(transform.position.x - other.transform.position.x) * _kbOther.x, Math.Sign(transform.position.y - other.transform.position.y) * _kbOther.y).normalized;
+
+        return _kb;
+    }
+
+    private int GetDamage(Collider2D other)
+    {
+        return other.GetComponent<IAttack>().Damage;
     }
 }

@@ -25,6 +25,10 @@ public class PlayerStats : ScriptableObject
         }
         set
         {
+            if (_activeHealth > value)
+            {
+                EventHealthDamaged?.Invoke(_activeHealth - value); // this is damage taken
+            }
             // ensures health does not go below 0
             _activeHealth = Math.Max(value, 0);
             EventHealthChanged?.Invoke(_activeHealth);
@@ -78,6 +82,7 @@ public class PlayerStats : ScriptableObject
     /// Event that is triggered when the player's health changes.
     /// </summary>
     public UnityAction<int> EventHealthChanged;
+    public UnityAction<int> EventHealthDamaged;
     public UnityAction<int> EventMaxHealthChanged;
 
     /// <summary>
