@@ -32,8 +32,6 @@ public class NewBehaviourScript : MonoBehaviour
         {
             visualCue.SetActive(false);
         }
-
-
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -51,8 +49,4 @@ public class NewBehaviourScript : MonoBehaviour
             playerInRange = false;
         }
     }
-
-
-
-
 }

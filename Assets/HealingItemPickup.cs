@@ -5,6 +5,7 @@ using UnityEngine;
 public class HealingItemPickup : MonoBehaviour, IPickup, IHealingItem
 {
     [SerializeField] private int healAmount;
+    [SerializeField] GameObject visualCue;
     public int HealAmount { get; set; }
 
     void Awake()
@@ -25,13 +26,32 @@ public class HealingItemPickup : MonoBehaviour, IPickup, IHealingItem
         Debug.Log("Healing player");
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("PlayerHitbox"))
         {
-            other.gameObject.GetComponent<PlayerHitbox>().Heal(HealAmount);
-            OnHeal();
-            OnPickup();
+            if (visualCue != null)
+            {
+                visualCue.SetActive(true);
+            }
+
+            if (InputManager.interact)
+            {
+                other.gameObject.GetComponent<PlayerHitbox>().Heal(HealAmount);
+                OnHeal();
+                OnPickup();
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("PlayerHitbox"))
+        {
+            if (visualCue != null)
+            {
+                visualCue.SetActive(false);
+            }
         }
     }
 }

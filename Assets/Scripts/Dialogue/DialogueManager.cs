@@ -4,35 +4,15 @@ using UnityEngine;
 using TMPro;
 using Ink.Runtime;
 
-public interface IDialogueManager
-{
-    void EnterDialogue(TextAsset inkJSON);
-    void ContinueStory();
-}
-
-public interface IDialogueDisplay
-{
-    void ShowDialogue(string text);
-    void HideDialogue();
-}
-
-public interface IInputProvider
-{
-    bool GetKeyDown(KeyCode keyCode);
-}
-
-public interface ICoroutineRunner
-{
-    Coroutine StartCoroutine(IEnumerator routine);
-}
-
-public class DialogueManager : MonoBehaviour, IDialogueManager
+public class DialogueManager : MonoBehaviour
 {
     [Header("Dialogue Manager")]
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private GameObject continueIcon;
     private static DialogueManager instance;// Singleton instance
+    private float delay = 0.2f;
+    private float timer = 0f;
 
     private Story currentStory;
     public bool isDialogueActive { get; private set; }
@@ -69,9 +49,14 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
                 continueIcon.SetActive(false);
             }
 
-            if (InputManager.interact)
+            if (InputManager.interact && timer <= 0)
             {
+                timer = delay;
                 ContinueStory();
+            }
+            else
+            {
+                timer -= Time.deltaTime;
             }
         }
 
@@ -94,6 +79,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         currentStory = new Story(inkJSON.text);
         isDialogueActive = true;
         dialoguePanel.SetActive(true);
+        timer = delay;
     }
 
     private IEnumerator ExitDialogue()
