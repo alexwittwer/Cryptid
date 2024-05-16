@@ -24,7 +24,7 @@ public class HealthBarUpdateScript : MonoBehaviour
     void UpdateHealthBar(int newHealthValue)
     {
         float _uiHealth = newHealthValue;
-        _uiHealth = _uiHealth / 100 * 6;
+        _uiHealth = _uiHealth / 12 * 6;
         gameObject.transform.localScale = new Vector3(_uiHealth, 0.5f, 1);
     }
 }
