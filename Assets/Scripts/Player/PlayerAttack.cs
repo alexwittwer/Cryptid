@@ -39,7 +39,7 @@ public class PlayerAttack : MonoBehaviour, IAttack
     void Update()
     {
         setOffset();
-        if (InputManager.attack && lastAttackTime <= 0)
+        if (InputManager.Attack && lastAttackTime <= 0)
         {
             lastAttackTime = attackCooldown;
             Attack();

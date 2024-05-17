@@ -112,6 +112,10 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.adaptiveTilingThreshold
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3132326518005142788, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
+      propertyPath: distanceMax
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5249901364484591014, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
       propertyPath: m_Size.x
       value: 0.19259334

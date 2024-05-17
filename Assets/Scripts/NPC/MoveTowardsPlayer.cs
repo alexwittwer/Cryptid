@@ -10,13 +10,11 @@ public class MoveTowardsPlayer : MonoBehaviour
     public float playerOffset;
     public float speed = 0.2f;
     public float distanceMax = .1f;
-    private bool playerInDistance = false;
+    private bool playerInRange = false;
 
     void Start()
     {
-        playerHitbox = GameObject.FindWithTag("Player").GetComponent<BoxCollider2D>();
-        playerTransform = GameObject.FindWithTag("Player").transform;
-        playerOffset = 0;
+        playerTransform = playerTransform != null ? playerTransform : GameObject.FindWithTag("Player").transform;
     }
 
     // Update is called once per frame
@@ -27,22 +25,24 @@ public class MoveTowardsPlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (playerInDistance)
+        if (playerInRange)
         {
-            MoveTowardsPlayerLogic();
+            float step = speed * Time.deltaTime;
+            Vector3 playerWithOffset = playerTransform.position + new Vector3(0, playerOffset, 0);
+            transform.position = Vector2.MoveTowards(transform.position, playerWithOffset, step);
         }
-    }
-
-    private void MoveTowardsPlayerLogic()
-    {
-        float step = speed * Time.deltaTime;
-        Vector3 playerWithOffset = playerTransform.position + new Vector3(0, playerOffset, 0);
-        transform.position = Vector2.MoveTowards(transform.position, playerWithOffset, step);
     }
 
     private void CheckIfInRange()
     {
         float distance = Vector2.Distance(transform.position, playerTransform.position);
-        playerInDistance = distance < distanceMax;
+        if (distance < distanceMax)
+        {
+            playerInRange = true;
+        }
+        else
+        {
+            playerInRange = false;
+        }
     }
 }

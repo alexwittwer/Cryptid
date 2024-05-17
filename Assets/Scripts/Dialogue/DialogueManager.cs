@@ -11,9 +11,6 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private GameObject continueIcon;
     private static DialogueManager instance;// Singleton instance
-    private float delay = 0.2f;
-    private float timer = 0f;
-
     private Story currentStory;
     public bool isDialogueActive { get; private set; }
 
@@ -29,6 +26,17 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        InputManager.interactAction += ContinueStory;
+    }
+
+    void OnDisable()
+    {
+        InputManager.interactAction -= ContinueStory;
+    }
+
+
     private void Start()
     {
         isDialogueActive = false;
@@ -38,6 +46,12 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
+
+        if (!isDialogueActive)
+        {
+            return;
+        }
+
         if (currentStory)
         {
             if (currentStory.canContinue)
@@ -48,24 +62,7 @@ public class DialogueManager : MonoBehaviour
             {
                 continueIcon.SetActive(false);
             }
-
-            if (InputManager.interact && timer <= 0)
-            {
-                timer = delay;
-                ContinueStory();
-            }
-            else
-            {
-                timer -= Time.deltaTime;
-            }
         }
-
-        if (!isDialogueActive)
-        {
-            return;
-        }
-
-
     }
 
     public static DialogueManager GetInstance()
@@ -79,7 +76,7 @@ public class DialogueManager : MonoBehaviour
         currentStory = new Story(inkJSON.text);
         isDialogueActive = true;
         dialoguePanel.SetActive(true);
-        timer = delay;
+        ContinueStory(true);
     }
 
     private IEnumerator ExitDialogue()
@@ -89,18 +86,22 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
         isDialogueActive = false;
         dialogueText.text = null;
+        currentStory = null;
     }
 
-    public void ContinueStory()
+    public void ContinueStory(bool value)
     {
-        if (currentStory.canContinue)
+        if (value && isDialogueActive)
         {
-            string text = currentStory.Continue();
-            dialogueText.text = text;
-        }
-        else
-        {
-            StartCoroutine(ExitDialogue());
+            if (currentStory && currentStory.canContinue)
+            {
+                string text = currentStory.Continue();
+                dialogueText.text = text;
+            }
+            else
+            {
+                StartCoroutine(ExitDialogue());
+            }
         }
     }
 

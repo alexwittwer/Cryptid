@@ -35,7 +35,7 @@ public class HealingItemPickup : MonoBehaviour, IPickup, IHealingItem
                 visualCue.SetActive(true);
             }
 
-            if (InputManager.interact)
+            if (InputManager.Interact)
             {
                 other.gameObject.GetComponent<PlayerHitbox>().Heal(HealAmount);
                 OnHeal();

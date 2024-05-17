@@ -1,18 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
     public static Vector2 movement;
-    public static bool attack;
-    public static bool interact;
-    public KeyCode lastKey;
+    public static bool _attack;
+    public static bool _interact;
+    public static bool Attack
+    {
+        get => _attack;
+        set
+        {
+            _attack = value;
+            attackAction?.Invoke(value);
+        }
+    }
+    public static bool Interact
+    {
+        get => _interact;
+        set
+        {
+            _interact = value;
+            interactAction?.Invoke(value);
+        }
+    }
+
+    private PlayerInput _playerInput;
     private InputAction _attackAction;
     private InputAction _interactionAction;
     private InputAction _moveAction;
-    private PlayerInput _playerInput;
+
+    public static UnityAction<bool> attackAction;
+    public static UnityAction<bool> interactAction;
 
     private void Awake()
     {
@@ -20,18 +40,16 @@ public class InputManager : MonoBehaviour
         _attackAction = _playerInput.actions["Attack"];
         _moveAction = _playerInput.actions["Move"];
         _interactionAction = _playerInput.actions["Interact"];
-    }
 
+        _attackAction.started += ctx => Attack = true;
+        _attackAction.canceled += ctx => Attack = false;
+
+        _interactionAction.started += ctx => Interact = true;
+        _interactionAction.canceled += ctx => Interact = false;
+    }
     private void Update()
     {
         movement = _moveAction.ReadValue<Vector2>();
-
-        _attackAction.performed += ctx => attack = true;
-        _attackAction.canceled += ctx => attack = false;
-
-        _interactionAction.performed += ctx => interact = true;
-        _interactionAction.canceled += ctx => interact = false;
     }
-
 
 }

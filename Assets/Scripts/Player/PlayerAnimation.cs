@@ -1,15 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class AnimationScript : MonoBehaviour
 {
     [Header("Animation Script")]
     [SerializeField] public Animator anim;
-    [SerializeField] private KeyCode lastKey { get; set; }
-    [SerializeField] private string currentState;
+    private string currentState;
 
     private struct StateName
     {
@@ -31,8 +26,8 @@ public class AnimationScript : MonoBehaviour
 
     private void Update()
     {
-        GetLastKey();
-        if (InputManager.attack)
+        Flip();
+        if (InputManager.Attack)
         {
             AttackAnimation();
         }
@@ -45,7 +40,8 @@ public class AnimationScript : MonoBehaviour
             IdleAnimation();
         }
     }
-    private void changeAnimationState(string newState)
+
+    private void ChangeAnimationState(string newState)
     {
         if (currentState == newState) return;
 
@@ -56,67 +52,61 @@ public class AnimationScript : MonoBehaviour
 
     private void AttackAnimation()
     {
-        if (lastKey == KeyCode.W)
+        if (InputManager.movement.y > 0)
         {
-            changeAnimationState(StateName.ATTACKU);
+            ChangeAnimationState(StateName.ATTACKU);
         }
-        else if (lastKey == KeyCode.S)
+        else if (InputManager.movement.y < 0)
         {
-            changeAnimationState(StateName.ATTACKD);
-        }
-        else if (lastKey == KeyCode.A || lastKey == KeyCode.D)
-        {
-            changeAnimationState(StateName.ATTACKS);
+            ChangeAnimationState(StateName.ATTACKD);
         }
         else
         {
-            changeAnimationState(StateName.ATTACKS);
+            ChangeAnimationState(StateName.ATTACKS);
         }
     }
 
     private void IdleAnimation()
     {
-        if (lastKey == KeyCode.W)
+        if (InputManager.movement.y > 0)
         {
-            changeAnimationState(StateName.IDLEU);
+            ChangeAnimationState(StateName.IDLEU);
         }
-        else if (lastKey == KeyCode.S)
+        else if (InputManager.movement.y < 0)
         {
-            changeAnimationState(StateName.IDLED);
+            ChangeAnimationState(StateName.IDLED);
         }
-        else if (lastKey == KeyCode.A || lastKey == KeyCode.D)
+        else
         {
-            changeAnimationState(StateName.IDLES);
+            ChangeAnimationState(StateName.IDLES);
         }
     }
-
 
     private void RunAnimation()
     {
         if (InputManager.movement.y > 0)
         {
-            changeAnimationState(StateName.RUNU);
+            ChangeAnimationState(StateName.RUNU);
         }
         else if (InputManager.movement.y < 0)
         {
-            changeAnimationState(StateName.RUND);
+            ChangeAnimationState(StateName.RUND);
         }
         else
         {
-            changeAnimationState(StateName.RUNS);
+            ChangeAnimationState(StateName.RUNS);
         }
     }
 
-    private void GetLastKey()
+    private void Flip()
     {
-        lastKey = Input.GetKey(KeyCode.W)
-            ? KeyCode.W
-            : Input.GetKey(KeyCode.S)
-            ? KeyCode.S
-            : Input.GetKey(KeyCode.A)
-            ? KeyCode.A
-            : Input.GetKey(KeyCode.D)
-            ? KeyCode.D
-            : lastKey;
+        if (InputManager.movement.x < 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+        else if (InputManager.movement.x > 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
     }
 }

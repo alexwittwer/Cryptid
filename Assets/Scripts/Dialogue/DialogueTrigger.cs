@@ -22,10 +22,9 @@ public class NewBehaviourScript : MonoBehaviour
         if (playerInRange && !DialogueManager.GetInstance().isDialogueActive)
         {
             visualCue.SetActive(true);
-            if (InputManager.interact)
+            if (InputManager.Interact)
             {
-                // Trigger Dialogue
-                DialogueManager.GetInstance().EnterDialogue(inkJSON);
+                EnterDialogue(inkJSON);
             }
         }
         else
@@ -48,5 +47,10 @@ public class NewBehaviourScript : MonoBehaviour
         {
             playerInRange = false;
         }
+    }
+
+    void EnterDialogue(TextAsset inkJSON)
+    {
+        DialogueManager.GetInstance().EnterDialogue(inkJSON);
     }
 }
