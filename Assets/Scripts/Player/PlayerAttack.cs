@@ -65,21 +65,21 @@ public class PlayerAttack : MonoBehaviour, IAttack
 
     private void setOffset()
     {
-        if (InputManager.movement.x > 0)
-        {
-            Hitbox.offset = new Vector2(0.25f, 0);
-        }
-        else if (InputManager.movement.x < 0)
-        {
-            Hitbox.offset = new Vector2(-0.25f, 0);
-        }
-        else if (InputManager.movement.y > 0)
+        if (InputManager.LastDirection == "N")
         {
             Hitbox.offset = new Vector2(0, 0.25f);
         }
-        else if (InputManager.movement.y < 0)
+        else if (InputManager.LastDirection == "S")
         {
             Hitbox.offset = new Vector2(0, -0.25f);
+        }
+        else if (InputManager.LastDirection == "W")
+        {
+            Hitbox.offset = new Vector2(-0.25f, 0);
+        }
+        else if (InputManager.LastDirection == "E")
+        {
+            Hitbox.offset = new Vector2(0.25f, 0);
         }
     }
 }

@@ -12,10 +12,15 @@ public class NPCAnimator : MonoBehaviour, IAnimateSprite
     public string MOVE => "Slime_red_Hop";
     public string ATTACK => "Slime_red_Hop";
 
-    void FixedUpdate()
+    void Update()
     {
         currentState ??= IDLE;
 
+        // If the NPC finished playing the hurt animation, return to the idle state
+        if (currentState == HURT && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.3f)
+        {
+            ChangeAnimationState(IDLE);
+        }
     }
 
     public void ChangeAnimationState(string newState)

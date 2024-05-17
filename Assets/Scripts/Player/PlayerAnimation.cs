@@ -52,11 +52,11 @@ public class AnimationScript : MonoBehaviour
 
     private void AttackAnimation()
     {
-        if (InputManager.movement.y > 0)
+        if (InputManager.LastDirection == "N")
         {
             ChangeAnimationState(StateName.ATTACKU);
         }
-        else if (InputManager.movement.y < 0)
+        else if (InputManager.LastDirection == "S")
         {
             ChangeAnimationState(StateName.ATTACKD);
         }
@@ -68,11 +68,11 @@ public class AnimationScript : MonoBehaviour
 
     private void IdleAnimation()
     {
-        if (InputManager.movement.y > 0)
+        if (InputManager.LastDirection == "N")
         {
             ChangeAnimationState(StateName.IDLEU);
         }
-        else if (InputManager.movement.y < 0)
+        else if (InputManager.LastDirection == "S")
         {
             ChangeAnimationState(StateName.IDLED);
         }

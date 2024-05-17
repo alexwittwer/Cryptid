@@ -18,11 +18,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1437637793654286147, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.8
+      value: -1.6569731
       objectReference: {fileID: 0}
     - target: {fileID: 1437637793654286147, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.36
+      value: -1.4385052
       objectReference: {fileID: 0}
     - target: {fileID: 1437637793654286147, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1746630287596483400, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
       propertyPath: m_LinearDrag
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1746630287596483400, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
       propertyPath: m_AngularDrag
@@ -67,6 +67,10 @@ PrefabInstance:
     - target: {fileID: 1746630287596483400, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
       propertyPath: m_SleepingMode
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1746630287596483400, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2821974505302169644, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
       propertyPath: m_Size.x

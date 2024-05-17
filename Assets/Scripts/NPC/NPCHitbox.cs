@@ -10,7 +10,7 @@ public class NPCHitbox : MonoBehaviour, IDamageable
     [SerializeField] private bool targetable = true;
     [SerializeField] private int damage = 1;
     [SerializeField] private GameObject parent;
-    private IAnimateSprite animateSprite;
+    [SerializeField] private IAnimateSprite animateSprite;
     public int Health { get => health; set => health = value; }
     public bool Invulnerable { get => invulnerable; set => invulnerable = value; }
     public bool Targetable { get => targetable; set => targetable = value; }
@@ -18,7 +18,7 @@ public class NPCHitbox : MonoBehaviour, IDamageable
     void Start()
     {
         parent = gameObject.transform.parent.gameObject;
-        animateSprite = parent.GetComponent<IAnimateSprite>();
+        animateSprite = gameObject.GetComponentInParent<IAnimateSprite>();
     }
     public void OnHit(int damage, Vector2 knockback)
     {
