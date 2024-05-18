@@ -67,19 +67,19 @@ public class PlayerAttack : MonoBehaviour, IAttack
     {
         if (InputManager.LastDirection == "N")
         {
-            Hitbox.offset = new Vector2(0, 0.25f);
+            Hitbox.offset = new Vector2(0, 0.2f);
         }
         else if (InputManager.LastDirection == "S")
         {
-            Hitbox.offset = new Vector2(0, -0.25f);
+            Hitbox.offset = new Vector2(0, -0.2f);
         }
         else if (InputManager.LastDirection == "W")
         {
-            Hitbox.offset = new Vector2(-0.25f, 0);
+            Hitbox.offset = new Vector2(-0.2f, 0);
         }
         else if (InputManager.LastDirection == "E")
         {
-            Hitbox.offset = new Vector2(0.25f, 0);
+            Hitbox.offset = new Vector2(0.2f, 0);
         }
     }
 }
