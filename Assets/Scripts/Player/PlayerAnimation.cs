@@ -4,6 +4,7 @@ public class AnimationScript : MonoBehaviour
 {
     [Header("Animation Script")]
     [SerializeField] public Animator anim;
+    [SerializeField] private SpriteRenderer sr;
     private string currentState;
 
     private struct StateName
@@ -22,6 +23,7 @@ public class AnimationScript : MonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -102,11 +104,11 @@ public class AnimationScript : MonoBehaviour
     {
         if (InputManager.movement.x < 0)
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            sr.flipX = false;
         }
         else if (InputManager.movement.x > 0)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            sr.flipX = true;
         }
     }
 }

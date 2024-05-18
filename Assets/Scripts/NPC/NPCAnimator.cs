@@ -5,30 +5,23 @@ using UnityEngine;
 public class NPCAnimator : MonoBehaviour, IAnimateSprite
 {
     [SerializeField] private Animator anim;
-    private string currentState;
+    private int currentState;
 
-    public string HURT => "Slime_red_Flash";
-    public string IDLE => "Slime_red_Hop";
-    public string MOVE => "Slime_red_Hop";
-    public string ATTACK => "Slime_red_Hop";
+    public int HURT = Animator.StringToHash("Hurt");
+    public int IDLE = Animator.StringToHash("Idle");
+    public int MOVE = Animator.StringToHash("Move");
+    public int ATTACK = Animator.StringToHash("Attack");
 
-    void Update()
+    void Start()
     {
-        currentState ??= IDLE;
-
-        // If the NPC finished playing the hurt animation, return to the idle state
-        if (currentState == HURT && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.3f)
-        {
-            ChangeAnimationState(IDLE);
-        }
+        anim = GetComponent<Animator>();
+        currentState = IDLE;
     }
 
-    public void ChangeAnimationState(string newState)
+    public void ChangeAnimationState(int newState)
     {
         if (currentState == newState) return;
-
         anim.Play(newState);
-
         currentState = newState;
     }
 
@@ -37,8 +30,18 @@ public class NPCAnimator : MonoBehaviour, IAnimateSprite
         ChangeAnimationState(HURT);
     }
 
-    public string GetCurrentState()
+    public void OnAttack()
     {
-        return currentState;
+        ChangeAnimationState(ATTACK);
+    }
+
+    public void OnMove()
+    {
+        ChangeAnimationState(MOVE);
+    }
+
+    public void OnIdle()
+    {
+        ChangeAnimationState(IDLE);
     }
 }

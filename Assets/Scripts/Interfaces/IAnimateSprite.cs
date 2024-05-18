@@ -2,11 +2,9 @@ using UnityEngine;
 
 public interface IAnimateSprite
 {
-    public string HURT { get; }
-    public string IDLE { get; }
-    public string MOVE { get; }
-    public string ATTACK { get; }
-    void ChangeAnimationState(string newState);
+    void ChangeAnimationState(int newState);
     void OnHit();
-    string GetCurrentState();
+    void OnAttack();
+    void OnMove();
+    void OnIdle();
 }

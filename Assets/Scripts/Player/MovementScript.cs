@@ -26,4 +26,9 @@ public class MovementScript : MonoBehaviour
 
         rb.velocity = movement * speed;
     }
+
+    public IEnumerator Wait(float time)
+    {
+        yield return new WaitForSeconds(time);
+    }
 }

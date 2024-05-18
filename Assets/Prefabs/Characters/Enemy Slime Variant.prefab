@@ -18,11 +18,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1437637793654286147, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.6569731
+      value: -3.8
       objectReference: {fileID: 0}
     - target: {fileID: 1437637793654286147, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.4385052
+      value: 5.36
       objectReference: {fileID: 0}
     - target: {fileID: 1437637793654286147, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -164,7 +164,7 @@ PrefabInstance:
       addedObject: {fileID: 6850804732540238637}
     - targetCorrespondingSourceObject: {fileID: 9044287122416286579, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7415521856377079306}
+      addedObject: {fileID: 142895171775939836}
     - targetCorrespondingSourceObject: {fileID: 8950134717119712328, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4767439745794735495}
@@ -269,7 +269,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7415521856377079306
+--- !u!114 &142895171775939836
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -278,7 +278,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4588559805381620972}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff744a1cda199a50a8fe598e003497d7, type: 3}
+  m_Script: {fileID: 11500000, guid: e7aeb94e4ce63c79c87e696199c2b5c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 6850804732540238637}
+  currentState: 0
+  lockState: 0
+  requestedState: 0
+  IDLE: 2081823275
+  MOVE: 1326225478
+  ATTACK: 1080829965
+  HURT: 1740614436
+  DEATH: 646380074
