@@ -34,11 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-<<<<<<< HEAD
     filterMode: 0
-=======
-    filterMode: 1
->>>>>>> 246ca31b8a5e7e9effd7c452540c39daa29246b7
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -47,11 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-<<<<<<< HEAD
   spriteMode: 2
-=======
-  spriteMode: 1
->>>>>>> 246ca31b8a5e7e9effd7c452540c39daa29246b7
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -80,11 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-<<<<<<< HEAD
     textureCompression: 0
-=======
-    textureCompression: 1
->>>>>>> 246ca31b8a5e7e9effd7c452540c39daa29246b7
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -120,7 +108,6 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-<<<<<<< HEAD
     sprites:
     - serializedVersion: 2
       name: Skeleton Dead_0
@@ -437,9 +424,6 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-=======
-    sprites: []
->>>>>>> 246ca31b8a5e7e9effd7c452540c39daa29246b7
     outline: []
     physicsShape: []
     bones: []
@@ -450,7 +434,6 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-<<<<<<< HEAD
     nameFileIdTable:
       Skeleton Dead_0: -414227239
       Skeleton Dead_1: 623424824
@@ -467,9 +450,6 @@ TextureImporter:
       Skeleton Dead_7: -597697253
       Skeleton Dead_8: 968572624
       Skeleton Dead_9: -763413064
-=======
-    nameFileIdTable: {}
->>>>>>> 246ca31b8a5e7e9effd7c452540c39daa29246b7
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

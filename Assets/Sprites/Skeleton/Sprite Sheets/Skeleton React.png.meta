@@ -34,11 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-<<<<<<< HEAD
     filterMode: 0
-=======
-    filterMode: 1
->>>>>>> 246ca31b8a5e7e9effd7c452540c39daa29246b7
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -47,11 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-<<<<<<< HEAD
   spriteMode: 2
-=======
-  spriteMode: 1
->>>>>>> 246ca31b8a5e7e9effd7c452540c39daa29246b7
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -80,11 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-<<<<<<< HEAD
     textureCompression: 0
-=======
-    textureCompression: 1
->>>>>>> 246ca31b8a5e7e9effd7c452540c39daa29246b7
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -120,7 +108,6 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-<<<<<<< HEAD
     sprites:
     - serializedVersion: 2
       name: Skeleton React_0
@@ -206,9 +193,6 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-=======
-    sprites: []
->>>>>>> 246ca31b8a5e7e9effd7c452540c39daa29246b7
     outline: []
     physicsShape: []
     bones: []
@@ -219,15 +203,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-<<<<<<< HEAD
     nameFileIdTable:
       Skeleton React_0: -2012712935
       Skeleton React_1: -1777984960
       Skeleton React_2: -1010631165
       Skeleton React_3: -2136873667
-=======
-    nameFileIdTable: {}
->>>>>>> 246ca31b8a5e7e9effd7c452540c39daa29246b7
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
