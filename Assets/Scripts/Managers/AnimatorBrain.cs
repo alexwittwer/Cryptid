@@ -12,6 +12,7 @@ public class AnimatorBrain : MonoBehaviour, IAnimateSprite
     public int currentState;
     public bool lockState = false;
     public int requestedState;
+    public bool DeathAnimationFinished;
 
     public int IDLE = Animator.StringToHash("Idle");
     public int MOVE = Animator.StringToHash("Move");
@@ -25,6 +26,13 @@ public class AnimatorBrain : MonoBehaviour, IAnimateSprite
 
     private void Update()
     {
+        if (currentState == DEATH)
+        {
+            if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+            {
+                DeathAnimationFinished = true;
+            }
+        }
         CheckLock(anim.GetCurrentAnimatorStateInfo(0));
 
         if (lockState) return;
@@ -82,6 +90,11 @@ public class AnimatorBrain : MonoBehaviour, IAnimateSprite
     {
         lockState = true;
         ChangeAnimationState(DEATH);
+    }
+
+    public bool IsDeathAnimationFinished()
+    {
+        return DeathAnimationFinished;
     }
 
     public void CheckLock(AnimatorStateInfo stateInfo)

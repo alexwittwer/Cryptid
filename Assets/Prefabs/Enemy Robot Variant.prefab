@@ -48,7 +48,7 @@ MonoBehaviour:
   target: {fileID: 0}
   parent: {fileID: 5604318678813170618}
   timeBetweenShots: 5
-  distanceMax: 1
+  distanceMax: 2
 --- !u!1001 &8244785736559554390
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -83,11 +83,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5899036117325031644, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.5673575
+      value: 0.43
       objectReference: {fileID: 0}
     - target: {fileID: 5899036117325031644, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.971257
+      value: 1.16
       objectReference: {fileID: 0}
     - target: {fileID: 5899036117325031644, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
       propertyPath: m_LocalPosition.z
