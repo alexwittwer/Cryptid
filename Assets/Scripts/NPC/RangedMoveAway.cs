@@ -27,8 +27,41 @@ public class RangeMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckIfInRange();
+        Flip();
+        CheckPlayerRange();
 
+        if (playerIsClose)
+        {
+            MoveAway();
+            anim.OnMove();
+        }
+        else if (playerInRange)
+        {
+            Move();
+            anim.OnMove();
+        }
+        else
+        {
+            anim.OnIdle();
+        }
+    }
+
+    private void CheckPlayerRange()
+    {
+        float distance = Vector2.Distance(transform.position, playerTransform.position);
+        if (distance < distanceMax)
+            playerInRange = true;
+        else
+            playerInRange = false;
+
+        if (distance < distanceMin)
+            playerIsClose = true;
+        else
+            playerIsClose = false;
+    }
+
+    void Flip()
+    {
         if (playerTransform.position.x < transform.position.x && !sr.flipX)
         {
             sr.flipX = true;
@@ -39,40 +72,17 @@ public class RangeMovement : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    void Move()
     {
-        if (playerInRange)
-        {
-            float step = speed * Time.deltaTime;
-            Vector3 playerWithOffset = playerTransform.position + new Vector3(0, playerOffset, 0);
-            rb.position = Vector2.MoveTowards(transform.position, playerWithOffset, step);
-            anim.OnMove();
-        }
+        float step = speed * Time.deltaTime;
+        Vector3 playerWithOffset = playerTransform.position + new Vector3(0, playerOffset, 0);
+        rb.position = Vector2.MoveTowards(transform.position, playerWithOffset, step);
     }
 
-    private void CheckIfInRange()
+    void MoveAway()
     {
-        float distance = Vector2.Distance(transform.position, playerTransform.position);
-        if (distance < distanceMax)
-        {
-            playerInRange = true;
-        }
-        else
-        {
-            playerInRange = false;
-        }
-    }
-
-    private void CheckIfPlayerClose()
-    {
-        float distance = Vector2.Distance(transform.position, playerTransform.position);
-        if (distance < distanceMin)
-        {
-            playerIsClose = true;
-        }
-        else
-        {
-            playerIsClose = false;
-        }
+        float step = speed * Time.deltaTime;
+        Vector3 playerWithOffset = playerTransform.position - new Vector3(0, playerOffset, 0);
+        rb.position = Vector2.MoveTowards(transform.position, playerWithOffset, step);
     }
 }

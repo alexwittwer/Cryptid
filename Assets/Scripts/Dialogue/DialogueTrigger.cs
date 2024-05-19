@@ -8,6 +8,7 @@ public class NewBehaviourScript : MonoBehaviour
     [SerializeField] private GameObject visualCue;
 
     [SerializeField] private TextAsset inkJSON;
+    private Rigidbody2D playerRigidbody;
 
     private bool playerInRange;
 
@@ -15,6 +16,7 @@ public class NewBehaviourScript : MonoBehaviour
     {
         visualCue.SetActive(false);
         playerInRange = false;
+        playerRigidbody = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -24,6 +26,7 @@ public class NewBehaviourScript : MonoBehaviour
             visualCue.SetActive(true);
             if (InputManager.Interact)
             {
+                playerRigidbody.velocity = Vector2.zero;
                 EnterDialogue(inkJSON);
             }
         }

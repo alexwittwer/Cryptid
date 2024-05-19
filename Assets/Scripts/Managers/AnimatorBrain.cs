@@ -32,15 +32,14 @@ public class AnimatorBrain : MonoBehaviour, IAnimateSprite
             {
                 DeathAnimationFinished = true;
             }
+
+            return;
         }
         CheckLock(anim.GetCurrentAnimatorStateInfo(0));
 
         if (lockState) return;
 
-        if (requestedState != currentState)
-        {
-            ChangeAnimationState(requestedState);
-        }
+        ChangeAnimationState(requestedState);
     }
 
 
@@ -66,13 +65,11 @@ public class AnimatorBrain : MonoBehaviour, IAnimateSprite
 
     public void OnHit()
     {
-        lockState = true;
         ChangeAnimationState(HURT);
     }
 
     public void OnAttack()
     {
-        lockState = true;
         ChangeAnimationState(ATTACK);
     }
 
@@ -99,10 +96,12 @@ public class AnimatorBrain : MonoBehaviour, IAnimateSprite
 
     public void CheckLock(AnimatorStateInfo stateInfo)
     {
-        if (lockState && stateInfo.normalizedTime >= 1 && (stateInfo.IsName("Attack") || stateInfo.IsName("Hurt") || stateInfo.IsName("Death")))
+        if (lockState)
         {
-            lockState = false;
+            if (stateInfo.normalizedTime >= 1 && (stateInfo.IsName("Attack") || stateInfo.IsName("Hurt") || stateInfo.IsName("Death")))
+                lockState = false;
         }
+        // DO NOT REMOVE THIS ELSE STATEMENT
         else
         {
             lockState = true;
