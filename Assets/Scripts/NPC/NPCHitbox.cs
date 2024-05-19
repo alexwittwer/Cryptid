@@ -11,6 +11,7 @@ public class NPCHitbox : MonoBehaviour, IDamageable
     [SerializeField] private int damage = 1;
     [SerializeField] private GameObject parent;
     [SerializeField] private IAnimateSprite animateSprite;
+    private bool isDead = false;
     public int Health { get => health; set => health = value; }
     public bool Invulnerable { get => invulnerable; set => invulnerable = value; }
     public bool Targetable { get => targetable; set => targetable = value; }
@@ -41,6 +42,15 @@ public class NPCHitbox : MonoBehaviour, IDamageable
         }
     }
 
+    void Update()
+    {
+        isDead = animateSprite.IsDeathAnimationFinished();
+        if (isDead)
+        {
+            Destroy(parent);
+        }
+    }
+
     public void OnHit(int damage)
     {
         if (!invulnerable)
@@ -59,7 +69,7 @@ public class NPCHitbox : MonoBehaviour, IDamageable
 
     public void OnObjectDestroyed()
     {
-        Destroy(parent);
+        animateSprite.OnDeath();
     }
 
     private void OnTriggerEnter2D(Collider2D other)

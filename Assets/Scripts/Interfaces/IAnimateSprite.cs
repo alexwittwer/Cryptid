@@ -7,4 +7,6 @@ public interface IAnimateSprite
     void OnAttack();
     void OnMove();
     void OnIdle();
+    void OnDeath();
+    bool IsDeathAnimationFinished();
 }
