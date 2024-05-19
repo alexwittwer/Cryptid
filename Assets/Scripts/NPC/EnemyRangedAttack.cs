@@ -20,6 +20,8 @@ public class EnemyRangedAttack : MonoBehaviour
         target = GameObject.FindWithTag("PlayerHitbox").transform;
         parent = gameObject.transform.parent.gameObject;
         anim = parent.GetComponent<IAnimateSprite>();
+
+        anim.OnIdle();
     }
 
     void Update()
