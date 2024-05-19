@@ -9,4 +9,5 @@ public interface IAnimateSprite
     void OnIdle();
     void OnDeath();
     bool IsDeathAnimationFinished();
+
 }
