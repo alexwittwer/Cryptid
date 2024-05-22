@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UIElements;
 
 public class MoveTowardsPlayer : MonoBehaviour
@@ -11,8 +12,15 @@ public class MoveTowardsPlayer : MonoBehaviour
     public IAnimateSprite anim;
     public float playerOffset;
     public float speed = 1f;
-    public float distanceMax = .1f;
+    public float distanceMax = 1f;
     private bool playerInRange = false;
+    public bool isAwake = false;
+    public float MinMagnitudeOfAgentVelocity = 0.01f;
+    public Vector3 startingPosition;
+    public NavMeshAgent agent;
+    public float SleepTime = 15f;
+    public float timer = 0f;
+    public bool CanMove = true;
 
     void Start()
     {
@@ -20,43 +28,81 @@ public class MoveTowardsPlayer : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<IAnimateSprite>();
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+        startingPosition = transform.position;
+    }
+
+    public void Immobilize()
+    {
+        CanMove = false;
+        // put agent to dead stop
+        agent.stoppingDistance = 0;
+        agent.velocity = Vector3.zero;
     }
 
     void Update()
     {
-        CheckIfInRange();
+        if (!CanMove)
+        {
+            return;
+        }
+        playerInRange = CheckIfInRange();
 
         Flip();
 
         if (playerInRange)
         {
             Move();
+            if (!isAwake)
+            {
+                isAwake = true;
+                anim.OnWake();
+                return;
+            }
             anim.OnMove();
+        }
+        else if (Mathf.Abs(agent.velocity.magnitude) >= MinMagnitudeOfAgentVelocity)
+        {
+            anim.OnMove();
+        }
+        else if (isAwake)
+        {
+            if (Mathf.Abs(agent.velocity.magnitude) >= MinMagnitudeOfAgentVelocity)
+            {
+                StartCoroutine(MoveToRandomPosition());
+            }
+            else
+            {
+                StartCoroutine(GoToSleep());
+            }
         }
         else
         {
             anim.OnIdle();
         }
+
+        if (isAwake)
+        {
+            timer += Time.deltaTime;
+            if (timer >= SleepTime)
+            {
+                isAwake = false;
+                timer = 0f;
+            }
+        }
     }
 
     private void Move()
     {
-        float step = speed * Time.deltaTime;
-        Vector3 playerWithOffset = playerTransform.position + new Vector3(0, playerOffset, 0);
-        rb.position = Vector2.MoveTowards(transform.position, playerWithOffset, step);
+        agent.SetDestination(playerTransform.position);
     }
 
-    private void CheckIfInRange()
+    private bool CheckIfInRange()
     {
         float distance = Vector2.Distance(transform.position, playerTransform.position);
-        if (distance < distanceMax)
-        {
-            playerInRange = true;
-        }
-        else
-        {
-            playerInRange = false;
-        }
+        return distance < distanceMax;
     }
 
     private void Flip()
@@ -68,6 +114,30 @@ public class MoveTowardsPlayer : MonoBehaviour
         else if (playerTransform.position.x > transform.position.x && sr.flipX)
         {
             sr.flipX = false;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, distanceMax);
+        Gizmos.DrawLine(transform.position, playerTransform.position);
+    }
+
+    private IEnumerator MoveToRandomPosition()
+    {
+        // Moves to a random position from the starting position within a range
+        Vector3 randomPositionWithinRange = startingPosition + new Vector3(Random.Range(-distanceMax, distanceMax), Random.Range(-distanceMax, distanceMax), 0);
+        agent.SetDestination(randomPositionWithinRange);
+        yield return new WaitForSeconds(5f);
+    }
+
+    private IEnumerator GoToSleep()
+    {
+        yield return new WaitForSeconds(5f);
+        if (timer >= SleepTime)
+        {
+            anim.OnIdle();
         }
     }
 }
