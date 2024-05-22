@@ -8,6 +8,6 @@ public interface IAnimateSprite
     void OnMove();
     void OnIdle();
     void OnDeath();
-    bool IsDeathAnimationFinished();
+    void OnWake();
 
 }

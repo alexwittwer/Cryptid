@@ -1,6 +1,7 @@
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 // <summary>
 // This class is responsible for controlling animations of a given sprite. 
@@ -10,57 +11,67 @@ public class AnimatorBrain : MonoBehaviour, IAnimateSprite
 
     public Animator anim;
     public int currentState;
-    public bool lockState = false;
-    public int requestedState;
-    public bool DeathAnimationFinished;
-
-    public int IDLE = Animator.StringToHash("Idle");
-    public int MOVE = Animator.StringToHash("Move");
-    public int ATTACK = Animator.StringToHash("Attack");
-    public int HURT = Animator.StringToHash("Hurt");
-    public int DEATH = Animator.StringToHash("Death");
+    private bool _hasBeenSet = false;
+    private bool _damageAnimationFinished = false;
+    public bool DeathAnimationFinished
+    {
+        get
+        {
+            return _damageAnimationFinished;
+        }
+        private set
+        {
+            _damageAnimationFinished = value;
+            OnDeathEvent?.Invoke();
+            Debug.Log("Death event invoked");
+        }
+    }
+    public int IDLE, MOVE, ATTACK, HURT, DEATH, WAKE;
+    public UnityAction OnDeathEvent;
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        InitializeHashes();
     }
 
-    private void Update()
+    void Start()
     {
-        if (currentState == DEATH)
-        {
-            if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
-            {
-                DeathAnimationFinished = true;
-            }
-
-            return;
-        }
-        CheckLock(anim.GetCurrentAnimatorStateInfo(0));
-
-        if (lockState) return;
-
-        ChangeAnimationState(requestedState);
+        ListAllAttachedEvents(OnDeathEvent);
     }
 
+    private void CheckDeathAnimation(bool hasBeenSet)
+    {
+        // if the death animation has been set
+        if (hasBeenSet)
+        {
+            // check if the death animation is playing
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("Death"))
+            {
+                // check if the death animation has finished
+                if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+                {
+                    // set the death animation to false
+                    DeathAnimationFinished = true;
+                    currentState = DEATH;
+                }
+            }
+        }
+    }
+
+
+    private void ListAllAttachedEvents(UnityAction unityEvent = null)
+    {
+        unityEvent.GetInvocationList().ToList().ForEach(x => Debug.Log(x.Method.Name));
+    }
 
     public void ChangeAnimationState(int newState)
     {
+        CheckDeathAnimation(_hasBeenSet);
         if (currentState == newState) return;
 
         anim.CrossFade(newState, 0f, 0);
 
         currentState = newState;
-    }
-
-    public void RequestAnimation(int newState)
-    {
-        if (newState != IDLE && newState != MOVE && newState != ATTACK && newState != HURT && newState != DEATH)
-        {
-            Debug.LogError("Invalid animation state requested");
-            return;
-        }
-
-        requestedState = newState;
     }
 
     public void OnHit()
@@ -75,36 +86,34 @@ public class AnimatorBrain : MonoBehaviour, IAnimateSprite
 
     public void OnMove()
     {
-        RequestAnimation(MOVE);
+        ChangeAnimationState(MOVE);
     }
 
     public void OnIdle()
     {
-        RequestAnimation(IDLE);
+        ChangeAnimationState(IDLE);
     }
 
     public void OnDeath()
     {
-        lockState = true;
+        _hasBeenSet = true;
         ChangeAnimationState(DEATH);
     }
 
-    public bool IsDeathAnimationFinished()
+    public void OnWake()
     {
-        return DeathAnimationFinished;
+        ChangeAnimationState(WAKE);
     }
 
-    public void CheckLock(AnimatorStateInfo stateInfo)
+    private void InitializeHashes()
     {
-        if (lockState)
-        {
-            if (stateInfo.normalizedTime >= 1 && (stateInfo.IsName("Attack") || stateInfo.IsName("Hurt") || stateInfo.IsName("Death")))
-                lockState = false;
-        }
-        // DO NOT REMOVE THIS ELSE STATEMENT
-        else
-        {
-            lockState = true;
-        }
+        IDLE = Animator.StringToHash("Idle");
+        MOVE = Animator.StringToHash("Move");
+        ATTACK = Animator.StringToHash("Attack");
+        HURT = Animator.StringToHash("Hurt");
+        DEATH = Animator.StringToHash("Death");
+        WAKE = Animator.StringToHash("Wake");
     }
+
+
 }

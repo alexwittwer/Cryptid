@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class NPCHitbox : MonoBehaviour, IDamageable
 {
@@ -10,17 +11,37 @@ public class NPCHitbox : MonoBehaviour, IDamageable
     [SerializeField] private bool targetable = true;
     [SerializeField] private int damage = 1;
     [SerializeField] private GameObject parent;
-    [SerializeField] private IAnimateSprite animateSprite;
-    private bool isDead = false;
+    [SerializeField] private AnimatorBrain animateSprite;
+    [SerializeField] private MoveTowardsPlayer movement;
     public int Health { get => health; set => health = value; }
     public bool Invulnerable { get => invulnerable; set => invulnerable = value; }
     public bool Targetable { get => targetable; set => targetable = value; }
 
-    void Start()
+    void Awake()
     {
         parent = gameObject.transform.parent.gameObject;
-        animateSprite = gameObject.GetComponentInParent<IAnimateSprite>();
+        animateSprite = gameObject.GetComponentInParent<AnimatorBrain>();
+        movement = gameObject.GetComponentInParent<MoveTowardsPlayer>();
     }
+
+    void Update()
+    {
+        if (health <= 0)
+        {
+            movement.Immobilize();
+            animateSprite.OnDeath();
+        }
+    }
+
+    void OnEnable()
+    {
+        animateSprite.OnDeathEvent += OnObjectDestroyed;
+    }
+    void OnDisable()
+    {
+        animateSprite.OnDeathEvent -= OnObjectDestroyed;
+    }
+
     public void OnHit(int damage, Vector2 knockback)
     {
         if (knockback != Vector2.zero)
@@ -33,7 +54,8 @@ public class NPCHitbox : MonoBehaviour, IDamageable
             health -= damage;
             if (health <= 0)
             {
-                OnObjectDestroyed();
+                movement.Immobilize();
+                animateSprite.OnDeath();
             }
             else
             {
@@ -41,16 +63,6 @@ public class NPCHitbox : MonoBehaviour, IDamageable
             }
         }
     }
-
-    void Update()
-    {
-        isDead = animateSprite.IsDeathAnimationFinished();
-        if (isDead)
-        {
-            Destroy(parent);
-        }
-    }
-
     public void OnHit(int damage)
     {
         if (!invulnerable)
@@ -58,7 +70,8 @@ public class NPCHitbox : MonoBehaviour, IDamageable
             health -= damage;
             if (health <= 0)
             {
-                OnObjectDestroyed();
+                movement.Immobilize();
+                animateSprite.OnDeath();
             }
             else
             {
@@ -69,7 +82,7 @@ public class NPCHitbox : MonoBehaviour, IDamageable
 
     public void OnObjectDestroyed()
     {
-        animateSprite.OnDeath();
+        Destroy(parent);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

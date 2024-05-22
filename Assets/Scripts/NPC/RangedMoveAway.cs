@@ -1,20 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UIElements;
 
-public class RangeMovement : MonoBehaviour
+public class RangedMovement : MonoBehaviour
 {
     public Transform playerTransform;
     public Rigidbody2D rb;
     public SpriteRenderer sr;
     public IAnimateSprite anim;
     public float playerOffset;
-    public float speed = 0.2f;
-    public float distanceMax = 2f;
-    public float distanceMin = 1f;
+    public float speed = 1f;
+    public float distanceMax = 1f;
     private bool playerInRange = false;
     private bool playerIsClose = false;
+    public bool isAwake = false;
+    public float MinMagnitudeOfAgentVelocity = 0.01f;
+    public Vector3 startingPosition;
+    public NavMeshAgent agent;
+    public float SleepTime = 15f;
+    public float timer = 0f;
+    public bool CanMove = true;
 
     void Start()
     {
@@ -22,45 +29,96 @@ public class RangeMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<IAnimateSprite>();
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+        startingPosition = transform.position;
     }
 
-    // Update is called once per frame
+    public void Immobilize()
+    {
+        CanMove = false;
+        // put agent to dead stop
+        agent.stoppingDistance = 0;
+        agent.velocity = Vector3.zero;
+    }
+
     void Update()
     {
-        Flip();
-        CheckPlayerRange();
-
-        if (playerIsClose)
+        if (!CanMove)
         {
-            MoveAway();
-            anim.OnMove();
+            return;
         }
-        else if (playerInRange)
+        playerInRange = CheckIfInRange();
+        playerIsClose = CheckIfClose();
+
+        Flip();
+
+        if (playerInRange && !playerIsClose)
         {
             Move();
+            if (!isAwake)
+            {
+                isAwake = true;
+                anim.OnWake();
+                return;
+            }
             anim.OnMove();
+        }
+        else if (Mathf.Abs(agent.velocity.magnitude) >= MinMagnitudeOfAgentVelocity)
+        {
+            anim.OnMove();
+        }
+        else if (isAwake)
+        {
+            if (Mathf.Abs(agent.velocity.magnitude) >= MinMagnitudeOfAgentVelocity)
+            {
+                StartCoroutine(MoveToRandomPosition());
+            }
+            else
+            {
+                StartCoroutine(GoToSleep());
+            }
         }
         else
         {
             anim.OnIdle();
         }
+
+        if (playerIsClose)
+        {
+            MoveAway();
+        }
+
+        if (isAwake)
+        {
+            timer += Time.deltaTime;
+            if (timer >= SleepTime)
+            {
+                isAwake = false;
+                timer = 0f;
+            }
+        }
     }
 
-    private void CheckPlayerRange()
+    private void Move()
+    {
+        agent.SetDestination(playerTransform.position);
+    }
+
+    private bool CheckIfInRange()
     {
         float distance = Vector2.Distance(transform.position, playerTransform.position);
-        if (distance < distanceMax)
-            playerInRange = true;
-        else
-            playerInRange = false;
-
-        if (distance < distanceMin)
-            playerIsClose = true;
-        else
-            playerIsClose = false;
+        return distance < distanceMax;
     }
 
-    void Flip()
+    private bool CheckIfClose()
+    {
+        float distance = Vector2.Distance(transform.position, playerTransform.position);
+        return distance < playerOffset;
+    }
+
+    private void Flip()
     {
         if (playerTransform.position.x < transform.position.x && !sr.flipX)
         {
@@ -72,17 +130,33 @@ public class RangeMovement : MonoBehaviour
         }
     }
 
-    void Move()
+    private void OnDrawGizmos()
     {
-        float step = speed * Time.deltaTime;
-        Vector3 playerWithOffset = playerTransform.position + new Vector3(0, playerOffset, 0);
-        rb.position = Vector2.MoveTowards(transform.position, playerWithOffset, step);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, distanceMax);
+        Gizmos.DrawLine(transform.position, playerTransform.position);
     }
 
-    void MoveAway()
+    private IEnumerator MoveToRandomPosition()
     {
-        float step = speed * Time.deltaTime;
-        Vector3 playerWithOffset = playerTransform.position - new Vector3(0, playerOffset, 0);
-        rb.position = Vector2.MoveTowards(transform.position, playerWithOffset, step);
+        // Moves to a random position from the starting position within a range
+        Vector3 randomPositionWithinRange = startingPosition + new Vector3(Random.Range(-distanceMax, distanceMax), Random.Range(-distanceMax, distanceMax), 0);
+        agent.SetDestination(randomPositionWithinRange);
+        yield return new WaitForSeconds(5f);
+    }
+
+    private IEnumerator GoToSleep()
+    {
+        yield return new WaitForSeconds(5f);
+        if (timer >= SleepTime)
+        {
+            anim.OnIdle();
+        }
+    }
+
+    private void MoveAway()
+    {
+        Vector3 direction = transform.position - playerTransform.position;
+        agent.SetDestination(transform.position + direction);
     }
 }
