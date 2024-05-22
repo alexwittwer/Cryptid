@@ -7,5 +7,4 @@ public interface IDamageable
     bool Targetable { get; set; }
     void OnHit(int damage, Vector2 knockback);
     void OnHit(int damage);
-    void OnObjectDestroyed();
 }

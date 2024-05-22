@@ -23,11 +23,21 @@ public class SlimeScript : MonoBehaviour, IDamageable
     [SerializeField] private bool CanMove = true;
 
     [Header("Status Variables")]
-    [SerializeField] private bool isAwake = false;
     [SerializeField] private bool _invulnerable = false;
     [SerializeField] private int _health = 1;
     [SerializeField] private bool _targetable = true;
     [SerializeField] private int Damage = 1;
+    [SerializeField] private float timer = 0f;
+    [SerializeField] private float InvulnerableTime = 1f;
+
+
+    [Header("Animator Variables")]
+    [SerializeField] private string currentState;
+    [SerializeField] private bool isMoving;
+    [SerializeField] private bool isIdle;
+    [SerializeField] private bool isHurt;
+    [SerializeField] private bool isDead;
+
 
     public bool Invulnerable { get => _invulnerable; set => _invulnerable = value; }
     public bool Targetable { get => _targetable; set => _targetable = value; }
@@ -47,24 +57,29 @@ public class SlimeScript : MonoBehaviour, IDamageable
         agent.updateUpAxis = false;
     }
 
+    void Start()
+    {
+        ChangeAnimationState("Idle");
+    }
+
     private void Update()
     {
-        if (!CanMove)
-        {
-            agent.velocity = Vector3.zero;
-            return;
-        }
         CheckIfInRange();
-
         Flip();
+
+        if (Invulnerable)
+        {
+            timer += Time.deltaTime;
+            if (timer >= InvulnerableTime)
+            {
+                Invulnerable = false;
+                timer = 0f;
+            }
+        }
 
         if (playerInRange)
         {
             Move();
-            if (!isAwake)
-            {
-                isAwake = true;
-            }
         }
         else
         {
@@ -120,10 +135,14 @@ public class SlimeScript : MonoBehaviour, IDamageable
 
     public void OnHit(int damage, Vector2 knockback)
     {
+        if (Invulnerable) return;
         Health -= damage;
+        Invulnerable = true;
+        ChangeAnimationState("Hurt");
         if (Health <= 0)
         {
             OnDeath();
+            OnObjectDestroyed(animator.GetCurrentAnimatorStateInfo(0).length);
         }
         else
         {
@@ -131,29 +150,41 @@ public class SlimeScript : MonoBehaviour, IDamageable
         }
     }
 
-    private void OnDeath()
+    public void OnHit(int damage)
     {
-        animator.SetTrigger("Death");
-        CanMove = false;
-        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && !animator.IsInTransition(0))
+        if (Invulnerable) return;
+        Health -= damage;
+        Invulnerable = true;
+        ChangeAnimationState("Hurt");
+        if (Health <= 0)
         {
-            OnObjectDestroyed();
+            OnDeath();
         }
     }
 
-    private void OnObjectDestroyed()
+    private void OnDeath()
+    {
+        ChangeAnimationState("Death");
+    }
+
+    public void OnObjectDestroyed(float time)
+    {
+        Destroy(gameObject, time);
+    }
+
+    public void OnObjectDestroyed()
     {
         Destroy(gameObject);
     }
 
     private void OnMove()
     {
-        animator.SetBool("isMoving", true);
+        ChangeAnimationState("Move");
     }
 
     private void OnIdle()
     {
-        animator.SetBool("isMoving", false);
+        ChangeAnimationState("Idle");
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -172,13 +203,15 @@ public class SlimeScript : MonoBehaviour, IDamageable
         }
     }
 
-    public void OnHit(int damage)
+    private void ChangeAnimationState(string newState)
     {
-        throw new System.NotImplementedException();
-    }
+        if (currentState == newState)
+        {
+            return;
+        }
 
-    void IDamageable.OnObjectDestroyed()
-    {
-        throw new System.NotImplementedException();
+        animator.CrossFade(newState, 0.1f, 0);
+
+        currentState = newState;
     }
 }

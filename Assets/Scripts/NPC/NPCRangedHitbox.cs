@@ -12,7 +12,7 @@ public class NPCRangedHitbox : MonoBehaviour, IDamageable
     [SerializeField] private int damage = 1;
     [SerializeField] private GameObject parent;
     [SerializeField] private AnimatorBrain animateSprite;
-    [SerializeField] private RangedMovement movement;
+    [SerializeField] private NPCRangedMovement movement;
     public int Health { get => health; set => health = value; }
     public bool Invulnerable { get => invulnerable; set => invulnerable = value; }
     public bool Targetable { get => targetable; set => targetable = value; }
@@ -21,7 +21,7 @@ public class NPCRangedHitbox : MonoBehaviour, IDamageable
     {
         parent = gameObject.transform.parent.gameObject;
         animateSprite = gameObject.GetComponentInParent<AnimatorBrain>();
-        movement = gameObject.GetComponentInParent<RangedMovement>();
+        movement = gameObject.GetComponentInParent<NPCRangedMovement>();
     }
 
     void Update()
@@ -31,15 +31,6 @@ public class NPCRangedHitbox : MonoBehaviour, IDamageable
             movement.Immobilize();
             animateSprite.OnDeath();
         }
-    }
-
-    void OnEnable()
-    {
-        animateSprite.OnDeathEvent += OnObjectDestroyed;
-    }
-    void OnDisable()
-    {
-        animateSprite.OnDeathEvent -= OnObjectDestroyed;
     }
 
     public void OnHit(int damage, Vector2 knockback)
