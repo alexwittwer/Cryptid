@@ -5,26 +5,26 @@ using UnityEngine.AI;
 public class NPCRangedMovement : MonoBehaviour
 {
     public Transform playerTransform;
-    public Rigidbody2D rb;
     public SpriteRenderer sr;
     public IAnimateSprite anim;
     public float playerOffset;
     public float speed = 1f;
     public float distanceMax = 1f;
+    public float distanceMin = .6f;
     private bool playerInRange = false;
     private bool playerIsClose = false;
-    public bool isAwake = false;
-    public float MinMagnitudeOfAgentVelocity = 0.01f;
+    public float MinMagnitudeOfAgentVelocity = 0.1f;
     public Vector3 startingPosition;
     public NavMeshAgent agent;
-    public float SleepTime = 15f;
-    public float timer = 0f;
+    public float RandomPositionTimer = 2f;
+    private float randomTimer = 0f;
     public bool CanMove = true;
+    public float SleepTime = 15f;
+    public float sleepTimer = 0f;
 
     void Start()
     {
         playerTransform = playerTransform != null ? playerTransform : GameObject.FindWithTag("Player").transform;
-        rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<IAnimateSprite>();
         agent = GetComponent<NavMeshAgent>();
@@ -36,7 +36,6 @@ public class NPCRangedMovement : MonoBehaviour
     public void Immobilize()
     {
         CanMove = false;
-        // put agent to dead stop
         agent.stoppingDistance = 0;
         agent.velocity = Vector3.zero;
     }
@@ -44,77 +43,70 @@ public class NPCRangedMovement : MonoBehaviour
     void Update()
     {
         if (!CanMove)
-        {
             return;
-        }
 
-        playerInRange = CheckIfInRange();
-        playerIsClose = CheckIfClose();
-
-        Flip();
-
-        if (playerInRange && !playerIsClose)
+        if (RandomPositionTimer > 0)
         {
-            MoveIn();
-            if (!isAwake)
+            randomTimer += Time.deltaTime;
+            if (randomTimer >= RandomPositionTimer)
             {
-                isAwake = true;
-                anim.OnWake();
-                return;
-            }
-            anim.OnMove();
-        }
-        else if (Mathf.Abs(agent.velocity.magnitude) >= MinMagnitudeOfAgentVelocity)
-        {
-            anim.OnMove();
-        }
-        else if (isAwake)
-        {
-            if (Mathf.Abs(agent.velocity.magnitude) >= MinMagnitudeOfAgentVelocity)
-            {
+                randomTimer = 0f;
                 StartCoroutine(MoveToRandomPosition());
             }
+        }
+
+        CheckIfInRange();
+        UpdateAnimation();
+        UpdateMovement();
+        Flip();
+    }
+
+    private void Move()
+    {
+        agent.SetDestination(playerTransform.position);
+    }
+
+    private void MoveAway()
+    {
+        agent.SetDestination(transform.position - playerTransform.position);
+    }
+
+    private void UpdateMovement()
+    {
+        if (playerInRange)
+        {
+            sleepTimer = 0f;
+            if (gameObject.GetComponentInChildren<NPCHitbox>().Health >= 3)
+                if (playerIsClose)
+                {
+                    MoveAway();
+                }
+                else
+                {
+                    Move();
+                }
             else
-            {
-                StartCoroutine(GoToSleep());
-            }
+                MoveAway();
+        }
+    }
+
+    private void UpdateAnimation()
+    {
+        if (playerInRange || (Mathf.Abs(agent.velocity.magnitude) >= MinMagnitudeOfAgentVelocity))
+        {
+            anim.OnMove();
         }
         else
         {
             anim.OnIdle();
         }
-
-        if (playerIsClose)
-        {
-            MoveAway();
-        }
-
-        if (isAwake)
-        {
-            timer += Time.deltaTime;
-            if (timer >= SleepTime)
-            {
-                isAwake = false;
-                timer = 0f;
-            }
-        }
     }
 
-    private void MoveIn()
-    {
-        agent.SetDestination(playerTransform.position);
-    }
 
-    private bool CheckIfInRange()
+    private void CheckIfInRange()
     {
-        float distance = Vector2.Distance(transform.position, playerTransform.position);
-        return distance < distanceMax;
-    }
-
-    private bool CheckIfClose()
-    {
-        float distance = Vector2.Distance(transform.position, playerTransform.position);
-        return distance < playerOffset;
+        playerInRange = Vector2.Distance(transform.position, playerTransform.position) < distanceMax;
+        playerIsClose = Vector2.Distance(transform.position, playerTransform.position) < distanceMin;
     }
 
     private void Flip()
@@ -138,24 +130,20 @@ public class NPCRangedMovement : MonoBehaviour
 
     private IEnumerator MoveToRandomPosition()
     {
-        // Moves to a random position from the starting position within a range
-        Vector3 randomPositionWithinRange = startingPosition + new Vector3(Random.Range(-distanceMax, distanceMax), Random.Range(-distanceMax, distanceMax), 0);
-        agent.SetDestination(randomPositionWithinRange);
         yield return new WaitForSeconds(5f);
+        if (!playerInRange)
+        {
+            Vector3 randomPositionWithinRange = startingPosition + new Vector3(Random.Range(-distanceMax, distanceMax), Random.Range(-distanceMax, distanceMax), 0);
+            agent.SetDestination(randomPositionWithinRange);
+        }
     }
 
     private IEnumerator GoToSleep()
     {
         yield return new WaitForSeconds(5f);
-        if (timer >= SleepTime)
+        if (sleepTimer >= SleepTime)
         {
-            anim.OnIdle();
+            anim.OnSleep();
         }
-    }
-
-    private void MoveAway()
-    {
-        Vector3 direction = transform.position - playerTransform.position;
-        agent.SetDestination(transform.position + direction);
     }
 }

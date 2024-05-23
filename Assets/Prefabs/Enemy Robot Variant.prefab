@@ -171,11 +171,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5899036117325031644, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.7657585
+      value: 6.2
       objectReference: {fileID: 0}
     - target: {fileID: 5899036117325031644, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.83829
+      value: 9.83
       objectReference: {fileID: 0}
     - target: {fileID: 5899036117325031644, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -245,6 +245,7 @@ PrefabInstance:
     - {fileID: 6850804732540238637, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
     - {fileID: 7590350651076418203, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
     - {fileID: 4767439745794735495, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
+    - {fileID: 142895171775939836, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
     m_RemovedGameObjects:
     - {fileID: 1589003643614328286, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
     m_AddedGameObjects:
@@ -273,6 +274,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5899036117325031644, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
   m_PrefabInstance: {fileID: 8244785736559554390}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &3361317644140274838 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6687441269971291072, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
+  m_PrefabInstance: {fileID: 8244785736559554390}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5507916671633992833 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4475260771959620567, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
@@ -294,9 +300,11 @@ MonoBehaviour:
   invulnerable: 0
   targetable: 1
   damage: 1
-  parent: {fileID: 0}
+  invulnerableTime: 0.5
+  lastHitTime: 0
   animateSprite: {fileID: 0}
   movement: {fileID: 0}
+  vcam: {fileID: 0}
 --- !u!1 &5604318678813170618 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4588559805381620972, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
@@ -336,18 +344,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 0}
-  rb: {fileID: 0}
-  sr: {fileID: 0}
+  sr: {fileID: 3361317644140274838}
   playerOffset: 0
   speed: 0.75
   distanceMax: 2
-  isAwake: 0
+  distanceMin: 0.6
   MinMagnitudeOfAgentVelocity: 0.01
   startingPosition: {x: 0, y: 0, z: 0}
   agent: {fileID: 0}
-  SleepTime: 15
-  timer: 0
+  RandomPositionTimer: 2
   CanMove: 1
+  SleepTime: 15
+  sleepTimer: 0
 --- !u!114 &8145930872444696441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,7 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7aeb94e4ce63c79c87e696199c2b5c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
+  anim: {fileID: 606984849781205062}
   currentState: 0
   IDLE: 2081823275
   MOVE: 1326225478
@@ -368,3 +376,4 @@ MonoBehaviour:
   HURT: 1740614436
   DEATH: 646380074
   WAKE: 0
+  SLEEP: 0

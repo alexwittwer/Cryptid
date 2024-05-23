@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class NPCHitbox : MonoBehaviour, IDamageable
@@ -14,6 +15,7 @@ public class NPCHitbox : MonoBehaviour, IDamageable
     [Header("Components")]
     [SerializeField] private AnimatorBrain animateSprite;
     [SerializeField] private NPCMovement movement;
+    [SerializeField] private CameraShake vcam;
 
     public int Health { get => health; set => health = value; }
     public bool Invulnerable { get => invulnerable; set => invulnerable = value; }
@@ -23,6 +25,7 @@ public class NPCHitbox : MonoBehaviour, IDamageable
     {
         animateSprite = GetComponentInParent<AnimatorBrain>();
         movement = GetComponentInParent<NPCMovement>();
+        vcam = FindObjectOfType<CameraShake>();
     }
 
     private void Update()
@@ -79,7 +82,7 @@ public class NPCHitbox : MonoBehaviour, IDamageable
         {
             Vector2 kb = GetKnockbackDirection(other);
             int dmg = GetDamage(other);
-
+            vcam.StartMiniShake();
             OnHit(dmg, kb);
         }
     }

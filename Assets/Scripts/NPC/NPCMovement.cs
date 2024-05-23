@@ -11,13 +11,14 @@ public class NPCMovement : MonoBehaviour
     public float speed = 1f;
     public float distanceMax = 1f;
     private bool playerInRange = false;
-    public bool IsAwake = false;
     public float MinMagnitudeOfAgentVelocity = 0.1f;
     public Vector3 startingPosition;
     public NavMeshAgent agent;
     public float RandomPositionTimer = 2f;
-    public float randomTimer = 0f;
+    private float randomTimer = 0f;
     public bool CanMove = true;
+    public float SleepTime = 15f;
+    public float sleepTimer = 0f;
 
     void Start()
     {
@@ -42,7 +43,7 @@ public class NPCMovement : MonoBehaviour
         if (!CanMove)
             return;
 
-        if (RandomPositionTimer > 0 && IsAwake)
+        if (RandomPositionTimer > 0)
         {
             randomTimer += Time.deltaTime;
             if (randomTimer >= RandomPositionTimer)
@@ -58,8 +59,6 @@ public class NPCMovement : MonoBehaviour
         Flip();
     }
 
-
-
     private void Move()
     {
         agent.SetDestination(playerTransform.position);
@@ -74,6 +73,7 @@ public class NPCMovement : MonoBehaviour
     {
         if (playerInRange)
         {
+            sleepTimer = 0f;
             if (gameObject.GetComponentInChildren<NPCHitbox>().Health >= 3)
                 Move();
             else
@@ -125,6 +125,15 @@ public class NPCMovement : MonoBehaviour
         {
             Vector3 randomPositionWithinRange = startingPosition + new Vector3(Random.Range(-distanceMax, distanceMax), Random.Range(-distanceMax, distanceMax), 0);
             agent.SetDestination(randomPositionWithinRange);
+        }
+    }
+
+    private IEnumerator GoToSleep()
+    {
+        yield return new WaitForSeconds(5f);
+        if (sleepTimer >= SleepTime)
+        {
+            anim.OnSleep();
         }
     }
 }

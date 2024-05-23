@@ -1,48 +1,59 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class NPCRangedHitbox : MonoBehaviour, IDamageable
 {
+    [Header("Status Variables")]
     [SerializeField] private int health = 3;
     [SerializeField] private bool invulnerable = false;
     [SerializeField] private bool targetable = true;
     [SerializeField] private int damage = 1;
-    [SerializeField] private GameObject parent;
+    [SerializeField] private float invulnerableTime = 0.5f;
+    [SerializeField] private float lastHitTime = 0f;
+
+    [Header("Components")]
     [SerializeField] private AnimatorBrain animateSprite;
     [SerializeField] private NPCRangedMovement movement;
+    [SerializeField] private CameraShake vcam;
+
     public int Health { get => health; set => health = value; }
     public bool Invulnerable { get => invulnerable; set => invulnerable = value; }
     public bool Targetable { get => targetable; set => targetable = value; }
 
-    void Awake()
+    private void Awake()
     {
-        parent = gameObject.transform.parent.gameObject;
-        animateSprite = gameObject.GetComponentInParent<AnimatorBrain>();
-        movement = gameObject.GetComponentInParent<NPCRangedMovement>();
+        animateSprite = GetComponentInParent<AnimatorBrain>();
+        movement = GetComponentInParent<NPCRangedMovement>();
+        vcam = FindObjectOfType<CameraShake>();
     }
 
-    void Update()
+    private void Update()
     {
         if (health <= 0)
         {
             movement.Immobilize();
             animateSprite.OnDeath();
         }
+
+        if (invulnerable && lastHitTime > 0)
+        {
+            lastHitTime -= Time.deltaTime;
+        }
+        else
+        {
+            invulnerable = false;
+        }
     }
 
     public void OnHit(int damage, Vector2 knockback)
     {
-        if (knockback != Vector2.zero)
-        {
-            gameObject.GetComponentInParent<Rigidbody2D>().AddForce(knockback, ForceMode2D.Impulse);
-        }
-
         if (!invulnerable)
         {
             health -= damage;
+            invulnerable = true;
+            lastHitTime = invulnerableTime;
+
             if (health <= 0)
             {
                 movement.Immobilize();
@@ -54,47 +65,31 @@ public class NPCRangedHitbox : MonoBehaviour, IDamageable
             }
         }
     }
+
     public void OnHit(int damage)
     {
-        if (!invulnerable)
-        {
-            health -= damage;
-            if (health <= 0)
-            {
-                movement.Immobilize();
-                animateSprite.OnDeath();
-            }
-            else
-            {
-                animateSprite.OnHit();
-            }
-        }
-    }
-
-    public void OnObjectDestroyed()
-    {
-        Destroy(parent);
+        OnHit(damage, Vector2.zero);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("PlayerHitbox"))
+        if (other.CompareTag("PlayerHitbox"))
         {
             other.GetComponent<IDamageable>().OnHit(damage);
         }
 
-        if (other.gameObject.CompareTag("Attack"))
+        if (other.CompareTag("Attack"))
         {
-            Vector2 _kb = GetKnockbackDirection(other);
-            int _damage = GetDamage(other);
-
-            OnHit(_damage, _kb);
+            Vector2 kb = GetKnockbackDirection(other);
+            int dmg = GetDamage(other);
+            vcam.StartMiniShake();
+            OnHit(dmg, kb);
         }
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("PlayerHitbox"))
+        if (other.CompareTag("PlayerHitbox"))
         {
             other.GetComponent<IDamageable>().OnHit(damage);
         }
@@ -102,10 +97,9 @@ public class NPCRangedHitbox : MonoBehaviour, IDamageable
 
     private Vector2 GetKnockbackDirection(Collider2D other)
     {
-        Vector2 _kbOther = other.GetComponent<IAttack>().KnockbackForce;
-        Vector2 _kb = new Vector2(Mathf.Sign(transform.position.x - other.transform.position.x) * _kbOther.x, Math.Sign(transform.position.y - other.transform.position.y) * _kbOther.y).normalized;
-
-        return _kb;
+        Vector2 kbOther = other.GetComponent<IAttack>().KnockbackForce;
+        Vector2 kb = new Vector2(Mathf.Sign(transform.position.x - other.transform.position.x) * kbOther.x, Mathf.Sign(transform.position.y - other.transform.position.y) * kbOther.y).normalized;
+        return kb;
     }
 
     private int GetDamage(Collider2D other)

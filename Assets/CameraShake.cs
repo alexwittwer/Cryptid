@@ -39,7 +39,7 @@ public class CameraShake : MonoBehaviour
         stats.EventHealthDamaged += StartShake;
     }
 
-    private void StartShake(int newHealthValue)
+    public void StartShake(int newHealthValue)
     {
         CinemachineBasicMultiChannelPerlin _cbmcp = vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         _cbmcp.m_AmplitudeGain = ShakeIntensity;
@@ -48,7 +48,16 @@ public class CameraShake : MonoBehaviour
         Timer = ShakeTime;
     }
 
-    private void StopShake()
+    public void StartMiniShake()
+    {
+        CinemachineBasicMultiChannelPerlin _cbmcp = vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        _cbmcp.m_AmplitudeGain = ShakeIntensity / 2;
+        _cbmcp.m_FrequencyGain = ShakeFrequency / 2;
+
+        Timer = ShakeTime / 2;
+    }
+
+    public void StopShake()
     {
         CinemachineBasicMultiChannelPerlin _cbmcp = vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         _cbmcp.m_AmplitudeGain = 0;

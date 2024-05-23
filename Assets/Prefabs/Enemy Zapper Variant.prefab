@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7aeb94e4ce63c79c87e696199c2b5c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
+  anim: {fileID: 7208834922886809958}
   currentState: 0
   IDLE: 2081823275
   MOVE: 1326225478
@@ -205,6 +205,7 @@ MonoBehaviour:
   HURT: 1740614436
   DEATH: 646380074
   WAKE: -2057670997
+  SLEEP: 0
 --- !u!195 &8047621377201918556
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -240,18 +241,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 0}
-  rb: {fileID: 0}
-  sr: {fileID: 0}
+  sr: {fileID: 7482325985364572555}
   playerOffset: 0
   speed: 1
   distanceMax: 1
-  isAwake: 1
   MinMagnitudeOfAgentVelocity: 0.1
   startingPosition: {x: 0, y: 0, z: 0}
   agent: {fileID: 8047621377201918556}
-  SleepTime: 10
-  timer: 0
+  RandomPositionTimer: 2
   CanMove: 1
+  SleepTime: 10
+  sleepTimer: 0
 --- !u!1 &361218459660300700
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,9 +346,11 @@ MonoBehaviour:
   invulnerable: 0
   targetable: 0
   damage: 1
-  parent: {fileID: 339398780783773351}
+  invulnerableTime: 0.5
+  lastHitTime: 0
   animateSprite: {fileID: 0}
   movement: {fileID: 0}
+  vcam: {fileID: 0}
 --- !u!1 &3248601479322765205
 GameObject:
   m_ObjectHideFlags: 0

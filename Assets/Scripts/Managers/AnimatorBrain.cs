@@ -10,7 +10,7 @@ public class AnimatorBrain : MonoBehaviour, IAnimateSprite
     public Animator anim;
     public int currentState;
 
-    public int IDLE, MOVE, ATTACK, HURT, DEATH, WAKE;
+    public int IDLE, MOVE, ATTACK, HURT, DEATH, WAKE, SLEEP;
 
     private void Awake()
     {
@@ -56,6 +56,11 @@ public class AnimatorBrain : MonoBehaviour, IAnimateSprite
         ChangeAnimationState(WAKE);
     }
 
+    public void OnSleep()
+    {
+        ChangeAnimationState(SLEEP);
+    }
+
     public void OnObjectDestroyed(float time)
     {
         Destroy(gameObject, time);
@@ -69,5 +74,6 @@ public class AnimatorBrain : MonoBehaviour, IAnimateSprite
         HURT = Animator.StringToHash("Hurt");
         DEATH = Animator.StringToHash("Death");
         WAKE = Animator.StringToHash("Wake");
+        SLEEP = Animator.StringToHash("Sleep");
     }
 }

@@ -201,6 +201,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3132326518005142788, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
+      propertyPath: sr
+      value: 
+      objectReference: {fileID: 6687441269971291072}
+    - target: {fileID: 3132326518005142788, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
       propertyPath: speed
       value: 0.7
       objectReference: {fileID: 0}
@@ -284,9 +288,11 @@ MonoBehaviour:
   invulnerable: 0
   targetable: 0
   damage: 1
-  parent: {fileID: 4588559805381620972}
+  invulnerableTime: 0.5
+  lastHitTime: 0
   animateSprite: {fileID: 0}
   movement: {fileID: 0}
+  vcam: {fileID: 0}
 --- !u!1 &4588559805381620972 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9044287122416286579, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
@@ -385,6 +391,7 @@ MonoBehaviour:
   HURT: 1740614436
   DEATH: 646380074
   WAKE: 0
+  SLEEP: 0
 --- !u!195 &1449314884448112962
 NavMeshAgent:
   m_ObjectHideFlags: 0
