@@ -5,12 +5,18 @@ using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour, IAttack
 {
-
-    [SerializeField] public BoxCollider2D Hitbox { get; set; }
+    [Header("Components")]
     [SerializeField] private PlayerStats stats;
     [SerializeField] private AudioSource swordSwing;
     [SerializeField] private PlayerAnimation playerAnimation;
+
+    [Header("Attack Variables")]
+    [SerializeField] private float attackCooldown = 1f;
+    [SerializeField] private Vector2 _knockbackForce = new Vector2(1f, 1f);
+    private float lastAttackTime = 0f;
+
     public int Damage { get => stats.Damage; set => stats.Damage = value; }
+    [SerializeField] public BoxCollider2D Hitbox { get; set; }
     public Vector2 KnockbackForce
     {
         get
@@ -22,10 +28,6 @@ public class PlayerAttack : MonoBehaviour, IAttack
             _knockbackForce = new Vector2(value.x, value.y);
         }
     }
-    private float attackCooldown = 0.5f;
-    [SerializeField] private Vector2 _knockbackForce = new Vector2(1f, 1f);
-    private float lastAttackTime = 0f;
-
 
     void Awake()
     {
