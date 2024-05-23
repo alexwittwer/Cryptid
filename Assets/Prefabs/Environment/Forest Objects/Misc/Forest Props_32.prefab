@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5685723629866536660}
   - component: {fileID: 4276210764438603101}
   - component: {fileID: 6663098344773560849}
+  - component: {fileID: 2776313400200070472}
   m_Layer: 0
   m_Name: Forest Props_32
   m_TagString: Untagged
@@ -137,3 +138,19 @@ PolygonCollider2D:
       - {x: 0.13614096, y: 0.06022007}
       - {x: 0.060840026, y: 0.13231283}
   m_UseDelaunayMesh: 0
+--- !u!114 &2776313400200070472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624402350439022919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

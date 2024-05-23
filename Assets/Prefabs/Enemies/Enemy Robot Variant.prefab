@@ -163,7 +163,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1449314884448112962, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
       propertyPath: m_Speed
-      value: 0.25
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 3904331814945849549, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
       propertyPath: m_audioClip
@@ -348,17 +348,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b44f521cbfe66e59ea088de17b6631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent: {fileID: 0}
   playerTransform: {fileID: 0}
   sr: {fileID: 3361317644140274838}
-  playerOffset: 0
-  speed: 0.75
+  startingPosition: {x: 0, y: 0, z: 0}
+  speed: 0.5
   distanceMax: 2
   distanceMin: 0.6
   MinMagnitudeOfAgentVelocity: 0.01
-  startingPosition: {x: 0, y: 0, z: 0}
-  agent: {fileID: 0}
-  RandomPositionTimer: 2
   CanMove: 1
+  RandomPositionTimer: 2
   SleepTime: 15
   sleepTimer: 0
 --- !u!114 &8145930872444696441

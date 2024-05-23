@@ -10,6 +10,12 @@ public class PlayerHitbox : MonoBehaviour, IDamageable
     public float invulnTime = 1.0f;
     public float invulnTimer = 0.0f;
     [SerializeField] private PlayerStats stats;
+    [SerializeField] private AudioSource hitSound;
+
+    private void Start()
+    {
+        hitSound = GetComponent<AudioSource>();
+    }
 
     public void Update()
     {
@@ -35,6 +41,7 @@ public class PlayerHitbox : MonoBehaviour, IDamageable
             invulnTimer = invulnTime;
             stats.Health -= damage;
             Invulnerable = true;
+            AudioManager.Instance.PlaySFX(hitSound.clip, .5f);
         }
 
         if (knockback != Vector2.zero)
@@ -51,6 +58,7 @@ public class PlayerHitbox : MonoBehaviour, IDamageable
         }
         else
         {
+            AudioManager.Instance.PlaySFX(hitSound.clip, .5f);
             invulnTimer = invulnTime;
             stats.Health -= damage;
             Invulnerable = true;

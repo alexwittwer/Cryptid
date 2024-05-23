@@ -1,66 +1,87 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
-    [Header("Animation Script")]
+    [Header("Components")]
     [SerializeField] public Animator anim;
     [SerializeField] private SpriteRenderer sr;
-    private string currentState;
+    [SerializeField] private AudioSource audioSource;
 
-    private struct StateName
-    {
-        public const string IDLEU = "Player_Idle_Up";
-        public const string RUNU = "Player_Run_Up";
-        public const string IDLED = "Player_Idle_Down";
-        public const string RUND = "Player_Run_Down";
-        public const string IDLES = "Player_Idle_Side";
-        public const string RUNS = "Player_Run_Side";
-        public const string ATTACKS = "Player_Attack_Side";
-        public const string ATTACKU = "Player_Attack_Up";
-        public const string ATTACKD = "Player_Attack_Down";
-    }
+
+    [Header("Animation States")]
+    private int currentState;
+    public int IDLEU = Animator.StringToHash("Player_Idle_Up");
+    public int RUNU = Animator.StringToHash("Player_Run_Up");
+    public int IDLED = Animator.StringToHash("Player_Idle_Down");
+    public int RUND = Animator.StringToHash("Player_Run_Down");
+    public int IDLES = Animator.StringToHash("Player_Idle_Side");
+    public int RUNS = Animator.StringToHash("Player_Run_Side");
+    public int ATTACKS = Animator.StringToHash("Player_Attack_Side");
+    public int ATTACKU = Animator.StringToHash("Player_Attack_Up");
+    public int ATTACKD = Animator.StringToHash("Player_Attack_Down");
+
+
+    [Header("Audio Clip Indexes")]
+    public int walkIndex;
+    public int walkIndexSize;
+    private float walkTimer = 0f;
+    private float walkTime = 0.3f;
+
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
         Flip();
-        if (InputManager.movement != Vector2.zero)
+        if (InputManager.Instance.publicMovement != Vector2.zero)
         {
-            RunAnimation();
+            if (walkTimer <= 0)
+            {
+                walkTimer = walkTime;
+                AudioManager.Instance.PlaySFX(audioSource.clip, .3f);
+            }
+            else
+            {
+                walkTimer -= Time.deltaTime;
+            }
+            OnMove();
         }
         else
         {
-            IdleAnimation();
+            OnIdle();
         }
     }
 
-    private void ChangeAnimationState(string newState)
+    private void ChangeAnimationState(int newState)
     {
         if (currentState == newState) return;
 
-        anim.Play(newState);
+        anim.CrossFade(newState, 0.1f, 0);
 
         currentState = newState;
     }
+
 
     private void AttackAnimation()
     {
         if (InputManager.LastDirection == "N")
         {
-            ChangeAnimationState(StateName.ATTACKU);
+            ChangeAnimationState(ATTACKU);
         }
         else if (InputManager.LastDirection == "S")
         {
-            ChangeAnimationState(StateName.ATTACKD);
+            ChangeAnimationState(ATTACKD);
         }
         else
         {
-            ChangeAnimationState(StateName.ATTACKS);
+            ChangeAnimationState(ATTACKS);
         }
     }
 
@@ -83,15 +104,15 @@ public class PlayerAnimation : MonoBehaviour
     {
         if (InputManager.LastDirection == "N")
         {
-            ChangeAnimationState(StateName.IDLEU);
+            ChangeAnimationState(IDLEU);
         }
         else if (InputManager.LastDirection == "S")
         {
-            ChangeAnimationState(StateName.IDLED);
+            ChangeAnimationState(IDLED);
         }
         else
         {
-            ChangeAnimationState(StateName.IDLES);
+            ChangeAnimationState(IDLES);
         }
     }
 
@@ -99,15 +120,15 @@ public class PlayerAnimation : MonoBehaviour
     {
         if (InputManager.movement.y > 0)
         {
-            ChangeAnimationState(StateName.RUNU);
+            ChangeAnimationState(RUNU);
         }
         else if (InputManager.movement.y < 0)
         {
-            ChangeAnimationState(StateName.RUND);
+            ChangeAnimationState(RUND);
         }
         else
         {
-            ChangeAnimationState(StateName.RUNS);
+            ChangeAnimationState(RUNS);
         }
     }
 

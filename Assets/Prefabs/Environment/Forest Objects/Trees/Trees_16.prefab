@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 2225400994099902912}
   - component: {fileID: 929660506465960586}
   - component: {fileID: 6697498166542901104}
+  - component: {fileID: 7084949504926543273}
   m_Layer: 0
   m_Name: Trees_16
   m_TagString: Untagged
@@ -232,7 +233,23 @@ MonoBehaviour:
   - {x: 0.109303, y: 0.028882213, z: 0}
   m_ShapePathHash: -421553607
   m_Mesh: {fileID: 0}
-  m_InstanceId: 350452
+  m_InstanceId: -438750
   m_LocalBounds:
     m_Center: {x: 0.007110715, y: 0.07770802, z: 0}
     m_Extent: {x: 0.10219228, y: 0.049818452, z: 0}
+--- !u!114 &7084949504926543273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4766116280627622125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
