@@ -9,10 +9,12 @@ public class MovementScript : MonoBehaviour
     private Vector2 movement;
     [Header("Components")]
     [SerializeField] public Rigidbody2D rb;
+    [SerializeField] private PlayerAnimation playerAnimation;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
+        playerAnimation = GetComponent<PlayerAnimation>();
     }
 
     // Update is called once per frame

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
@@ -11,7 +12,8 @@ public class PlayerAnimation : MonoBehaviour
 
 
     [Header("Animation States")]
-    private int currentState;
+    public int currentState;
+    public int prevState;
     public int IDLEU = Animator.StringToHash("Player_Idle_Up");
     public int RUNU = Animator.StringToHash("Player_Run_Up");
     public int IDLED = Animator.StringToHash("Player_Idle_Down");
@@ -22,13 +24,9 @@ public class PlayerAnimation : MonoBehaviour
     public int ATTACKU = Animator.StringToHash("Player_Attack_Up");
     public int ATTACKD = Animator.StringToHash("Player_Attack_Down");
 
-
     [Header("Audio Clip Indexes")]
-    public int walkIndex;
-    public int walkIndexSize;
     private float walkTimer = 0f;
     private float walkTime = 0.3f;
-
 
     private void Awake()
     {
@@ -42,6 +40,8 @@ public class PlayerAnimation : MonoBehaviour
         Flip();
         if (InputManager.Instance.publicMovement != Vector2.zero)
         {
+            anim.SetBool("Moving", true);
+            OnMove();
             if (walkTimer <= 0)
             {
                 walkTimer = walkTime;
@@ -51,11 +51,24 @@ public class PlayerAnimation : MonoBehaviour
             {
                 walkTimer -= Time.deltaTime;
             }
-            OnMove();
         }
         else
         {
+            anim.SetBool("Moving", false);
             OnIdle();
+        }
+
+        switch (InputManager.Instance.publicLastDirection)
+        {
+            case "N":
+                anim.SetInteger("Direction", 1);
+                break;
+            case "S":
+                anim.SetInteger("Direction", -1);
+                break;
+            default:
+                anim.SetInteger("Direction", 0);
+                break;
         }
     }
 
@@ -65,9 +78,9 @@ public class PlayerAnimation : MonoBehaviour
 
         anim.CrossFade(newState, 0.1f, 0);
 
+        prevState = currentState;
         currentState = newState;
     }
-
 
     private void AttackAnimation()
     {
@@ -83,21 +96,6 @@ public class PlayerAnimation : MonoBehaviour
         {
             ChangeAnimationState(ATTACKS);
         }
-    }
-
-    public void OnAttack()
-    {
-        AttackAnimation();
-    }
-
-    public void OnMove()
-    {
-        RunAnimation();
-    }
-
-    public void OnIdle()
-    {
-        IdleAnimation();
     }
 
     private void IdleAnimation()
@@ -142,5 +140,20 @@ public class PlayerAnimation : MonoBehaviour
         {
             sr.flipX = true;
         }
+    }
+
+    public void OnAttack()
+    {
+        AttackAnimation();
+    }
+
+    public void OnMove()
+    {
+        RunAnimation();
+    }
+
+    public void OnIdle()
+    {
+        IdleAnimation();
     }
 }
