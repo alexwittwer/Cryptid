@@ -83,7 +83,7 @@ public class NPCRangedMovement : MonoBehaviour
         if (playerInRange)
         {
             sleepTimer = 0f;
-            if (gameObject.GetComponentInChildren<NPCHitbox>().Health >= 3)
+            if (GetComponentInChildren<IDamageable>().Health >= 3)
                 if (playerIsClose)
                 {
                     MoveAway();
