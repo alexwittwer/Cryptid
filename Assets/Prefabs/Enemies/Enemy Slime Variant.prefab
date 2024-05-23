@@ -206,11 +206,11 @@ PrefabInstance:
       objectReference: {fileID: 6687441269971291072}
     - target: {fileID: 3132326518005142788, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
       propertyPath: speed
-      value: 0.7
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 3132326518005142788, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
       propertyPath: distanceMax
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5249901364484591014, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
       propertyPath: m_Size.x
@@ -287,7 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8bdcafb376b769458500c1b7248c689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 26
+  health: 13
   invulnerable: 0
   targetable: 0
   damage: 1
@@ -501,17 +501,17 @@ NavMeshAgent:
   m_GameObject: {fileID: 4588559805381620972}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.64
-  m_Speed: 0.3
-  m_Acceleration: 8
+  m_Radius: 0.19
+  m_Speed: 0.4
+  m_Acceleration: 1
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
-  m_Height: 1.28
-  m_BaseOffset: 0.64
+  m_Height: 0.8199999
+  m_BaseOffset: 0.41
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!4 &5899036117325031644 stripped

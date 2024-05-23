@@ -93,6 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 2e072a06ab923499ea11f666e3d8d992, type: 2}
   swordSwing: {fileID: 0}
+  playerAnimation: {fileID: 0}
   _knockbackForce: {x: 0.8, y: 0.8}
 --- !u!82 &9172416165350383587
 AudioSource:
@@ -105,7 +106,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 634721597147ae6b1960f862a2640b98, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
