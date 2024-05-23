@@ -9,5 +9,6 @@ public interface IAnimateSprite
     void OnIdle();
     void OnDeath();
     void OnWake();
-
+    void OnSleep();
+    void OnObjectDestroyed(float time);
 }

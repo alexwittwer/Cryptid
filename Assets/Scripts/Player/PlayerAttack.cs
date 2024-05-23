@@ -8,6 +8,8 @@ public class PlayerAttack : MonoBehaviour, IAttack
 
     [SerializeField] public BoxCollider2D Hitbox { get; set; }
     [SerializeField] private PlayerStats stats;
+    [SerializeField] private AudioSource swordSwing;
+    [SerializeField] private PlayerAnimation playerAnimation;
     public int Damage { get => stats.Damage; set => stats.Damage = value; }
     public Vector2 KnockbackForce
     {
@@ -28,6 +30,8 @@ public class PlayerAttack : MonoBehaviour, IAttack
     void Awake()
     {
         Hitbox = GetComponent<BoxCollider2D>();
+        swordSwing = GetComponent<AudioSource>();
+        playerAnimation = GetComponentInParent<PlayerAnimation>();
     }
     void Start()
     {
@@ -53,6 +57,8 @@ public class PlayerAttack : MonoBehaviour, IAttack
     private void Attack()
     {
         Hitbox.enabled = true;
+        AudioManager.Instance.PlaySFX(swordSwing.clip);
+        playerAnimation.OnAttack();
         StartCoroutine(DisableHitbox());
     }
 

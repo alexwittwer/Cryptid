@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AnimationScript : MonoBehaviour
+public class PlayerAnimation : MonoBehaviour
 {
     [Header("Animation Script")]
     [SerializeField] public Animator anim;
@@ -29,11 +29,7 @@ public class AnimationScript : MonoBehaviour
     private void Update()
     {
         Flip();
-        if (InputManager.Attack)
-        {
-            AttackAnimation();
-        }
-        else if (InputManager.movement != Vector2.zero)
+        if (InputManager.movement != Vector2.zero)
         {
             RunAnimation();
         }
@@ -66,6 +62,21 @@ public class AnimationScript : MonoBehaviour
         {
             ChangeAnimationState(StateName.ATTACKS);
         }
+    }
+
+    public void OnAttack()
+    {
+        AttackAnimation();
+    }
+
+    public void OnMove()
+    {
+        RunAnimation();
+    }
+
+    public void OnIdle()
+    {
+        IdleAnimation();
     }
 
     private void IdleAnimation()
