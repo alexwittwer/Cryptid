@@ -4,19 +4,23 @@ using UnityEngine.AI;
 
 public class NPCMovement : MonoBehaviour
 {
+    [Header("Components")]
     public Transform playerTransform;
     public SpriteRenderer sr;
+    public NavMeshAgent agent;
     public IAnimateSprite anim;
-    public float playerOffset;
+
+    [Header("Movement Variables")]
+    public Vector3 startingPosition;
     public float speed = 1f;
     public float distanceMax = 1f;
-    private bool playerInRange = false;
     public float MinMagnitudeOfAgentVelocity = 0.1f;
-    public Vector3 startingPosition;
-    public NavMeshAgent agent;
+
+    [Header("Status Variables")]
+    private bool playerInRange = false;
+    public bool CanMove = true;
     public float RandomPositionTimer = 2f;
     private float randomTimer = 0f;
-    public bool CanMove = true;
     public float SleepTime = 15f;
     public float sleepTimer = 0f;
 

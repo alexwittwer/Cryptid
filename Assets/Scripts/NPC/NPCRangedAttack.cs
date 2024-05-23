@@ -5,10 +5,13 @@ using UnityEngine;
 public class NPCRangedAttack : MonoBehaviour
 {
 
+    [Header("Components")]
     public GameObject projectile;
     public Transform target;
     public GameObject parent;
     public IAnimateSprite anim;
+
+    [Header("Projectile Variables")]
     private float projectileSpeed;
     public float timeBetweenShots = 5f;
     private float shotCounter;

@@ -4,21 +4,27 @@ using UnityEngine.AI;
 
 public class NPCRangedMovement : MonoBehaviour
 {
+    [Header("Components")]
+    public NavMeshAgent agent;
     public Transform playerTransform;
     public SpriteRenderer sr;
     public IAnimateSprite anim;
-    public float playerOffset;
-    public float speed = 1f;
+
+    [Header("Movement Variables")]
+    public Vector3 startingPosition;
+    public float speed = .5f;
     public float distanceMax = 1f;
     public float distanceMin = .6f;
+    public float MinMagnitudeOfAgentVelocity = 0.1f;
+
+    [Header("Status Variables")]
     private bool playerInRange = false;
     private bool playerIsClose = false;
-    public float MinMagnitudeOfAgentVelocity = 0.1f;
-    public Vector3 startingPosition;
-    public NavMeshAgent agent;
+    public bool CanMove = true;
+
+    [Header("Timer Variables")]
     public float RandomPositionTimer = 2f;
     private float randomTimer = 0f;
-    public bool CanMove = true;
     public float SleepTime = 15f;
     public float sleepTimer = 0f;
 
@@ -31,6 +37,7 @@ public class NPCRangedMovement : MonoBehaviour
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         startingPosition = transform.position;
+        agent.speed = speed;
     }
 
     public void Immobilize()

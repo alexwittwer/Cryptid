@@ -16,6 +16,7 @@ public class NPCRangedHitbox : MonoBehaviour, IDamageable
     [SerializeField] private AnimatorBrain animateSprite;
     [SerializeField] private NPCRangedMovement movement;
     [SerializeField] private CameraShake vcam;
+    [SerializeField] private AudioSource audioSource;
 
     public int Health { get => health; set => health = value; }
     public bool Invulnerable { get => invulnerable; set => invulnerable = value; }
@@ -26,6 +27,7 @@ public class NPCRangedHitbox : MonoBehaviour, IDamageable
         animateSprite = GetComponentInParent<AnimatorBrain>();
         movement = GetComponentInParent<NPCRangedMovement>();
         vcam = FindObjectOfType<CameraShake>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -53,7 +55,8 @@ public class NPCRangedHitbox : MonoBehaviour, IDamageable
             health -= damage;
             invulnerable = true;
             lastHitTime = invulnerableTime;
-
+            AudioManager.Instance.PlaySFX(audioSource.clip);
+            movement.agent.velocity = knockback;
             if (health <= 0)
             {
                 movement.Immobilize();

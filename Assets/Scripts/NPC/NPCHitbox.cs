@@ -16,6 +16,7 @@ public class NPCHitbox : MonoBehaviour, IDamageable
     [SerializeField] private AnimatorBrain animateSprite;
     [SerializeField] private NPCMovement movement;
     [SerializeField] private CameraShake vcam;
+    [SerializeField] private AudioSource audioSource;
 
     public int Health { get => health; set => health = value; }
     public bool Invulnerable { get => invulnerable; set => invulnerable = value; }
@@ -26,6 +27,7 @@ public class NPCHitbox : MonoBehaviour, IDamageable
         animateSprite = GetComponentInParent<AnimatorBrain>();
         movement = GetComponentInParent<NPCMovement>();
         vcam = FindObjectOfType<CameraShake>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -51,9 +53,10 @@ public class NPCHitbox : MonoBehaviour, IDamageable
         if (!invulnerable)
         {
             health -= damage;
+            AudioManager.Instance.PlaySFX(audioSource.clip);
             invulnerable = true;
             lastHitTime = invulnerableTime;
-
+            movement.agent.velocity = knockback;
             if (health <= 0)
             {
                 movement.Immobilize();

@@ -165,17 +165,21 @@ PrefabInstance:
       propertyPath: m_Speed
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 3904331814945849549, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 99306d307f909807d8b148f1079877af, type: 3}
     - target: {fileID: 4588559805381620972, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
       propertyPath: m_Name
       value: Enemy Robot Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5899036117325031644, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.2
+      value: 4.7657585
       objectReference: {fileID: 0}
     - target: {fileID: 5899036117325031644, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.83
+      value: 9.83829
       objectReference: {fileID: 0}
     - target: {fileID: 5899036117325031644, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -305,6 +309,7 @@ MonoBehaviour:
   animateSprite: {fileID: 0}
   movement: {fileID: 0}
   vcam: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!1 &5604318678813170618 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4588559805381620972, guid: 90d9fd6d2c6506c0d92ebf0fe01ad81d, type: 3}
