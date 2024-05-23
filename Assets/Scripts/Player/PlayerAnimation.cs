@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
@@ -5,6 +7,7 @@ public class PlayerAnimation : MonoBehaviour
     [Header("Components")]
     [SerializeField] public Animator anim;
     [SerializeField] private SpriteRenderer sr;
+    [SerializeField] private AudioSource audioSource;
 
 
     [Header("Animation States")]
@@ -20,10 +23,18 @@ public class PlayerAnimation : MonoBehaviour
     public int ATTACKD = Animator.StringToHash("Player_Attack_Down");
 
 
+    [Header("Audio Clip Indexes")]
+    public int walkIndex;
+    public int walkIndexSize;
+    private float walkTimer = 0f;
+    private float walkTime = 0.3f;
+
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -31,17 +42,18 @@ public class PlayerAnimation : MonoBehaviour
         Flip();
         if (InputManager.Instance.publicMovement != Vector2.zero)
         {
+            if (walkTimer <= 0)
+            {
+                walkTimer = walkTime;
+                AudioManager.Instance.PlaySFX(audioSource.clip, .3f);
+            }
+            else
+            {
+                walkTimer -= Time.deltaTime;
+            }
             OnMove();
         }
         else
-        {
-            OnIdle();
-        }
-
-        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= (anim.GetCurrentAnimatorStateInfo(0).length)
-        && (anim.GetCurrentAnimatorStateInfo(0).IsName("Player_Attack_Side")
-        || anim.GetCurrentAnimatorStateInfo(0).IsName("Player_Attack_Up")
-        || anim.GetCurrentAnimatorStateInfo(0).IsName("Player_Attack_Down")))
         {
             OnIdle();
         }
@@ -55,6 +67,7 @@ public class PlayerAnimation : MonoBehaviour
 
         currentState = newState;
     }
+
 
     private void AttackAnimation()
     {

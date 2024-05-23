@@ -15,5 +15,5 @@ MonoBehaviour:
   _health: 12
   _maxHealth: 12
   _damage: 3
-  _activeHealth: 3
+  _activeHealth: 8
   _isInvulnerable: 0
