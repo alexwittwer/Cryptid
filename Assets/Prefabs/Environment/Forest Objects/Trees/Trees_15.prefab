@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6735665524418663321}
   - component: {fileID: 8692976880860412181}
   - component: {fileID: 7067645597421537529}
+  - component: {fileID: 1049692010930537618}
   m_Layer: 0
   m_Name: Trees_15
   m_TagString: Untagged
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 1306672253, guid: d9fbcd48273b05dd4a1c2399774a7bab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -121,6 +122,22 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.12510061}
   serializedVersion: 2
   m_Radius: 0.12510061
+--- !u!114 &1049692010930537618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730105320745565072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &3179141184165185192
 GameObject:
   m_ObjectHideFlags: 0

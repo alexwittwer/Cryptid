@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: ff13ac38380f06a01adbb1bb178e10bc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -268,6 +268,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 505188021332677510, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c9258c2f70bc1d418b537e32115e4a84, type: 2}
     - target: {fileID: 1437637793654286147, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.5018739
@@ -309,6 +313,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1601055504715671774, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1110016242, guid: d1c540bd8bc1107c89f183b87a9f9f57, type: 3}
+    - target: {fileID: 1601055504715671774, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
       propertyPath: m_SpriteSortPoint
       value: 1
       objectReference: {fileID: 0}
@@ -326,6 +334,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3132326518005142788, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
+    - {fileID: 505188021332677510, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
     m_RemovedGameObjects:
     - {fileID: 3860883740780493351, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
     - {fileID: 8950134717119712328, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
@@ -339,10 +348,39 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1437637793654286147, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8666913344146846081}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3857654922976823767, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8269919125073340347}
   m_SourcePrefab: {fileID: 100100000, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
 --- !u!4 &654287217323866999 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1437637793654286147, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
   m_PrefabInstance: {fileID: 1938796569350003764}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3417908326330553827 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3857654922976823767, guid: 473f84f1921e71ed5a995db7e79d5cc9, type: 3}
+  m_PrefabInstance: {fileID: 1938796569350003764}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8269919125073340347
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3417908326330553827}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c2fcc42ad09b84b399bac865279decbe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
