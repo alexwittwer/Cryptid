@@ -9,6 +9,7 @@ public class AnimatorBrain : MonoBehaviour, IAnimateSprite
 {
     public Animator anim;
     public int currentState;
+    public int deathStateTime;
 
     public int IDLE, MOVE, ATTACK, HURT, DEATH, WAKE, SLEEP;
 
@@ -16,6 +17,7 @@ public class AnimatorBrain : MonoBehaviour, IAnimateSprite
     {
         anim = GetComponent<Animator>();
         InitializeHashes();
+        deathStateTime = 0;
     }
 
     public void ChangeAnimationState(int newState)
@@ -48,7 +50,8 @@ public class AnimatorBrain : MonoBehaviour, IAnimateSprite
     public void OnDeath()
     {
         ChangeAnimationState(DEATH);
-        OnObjectDestroyed(anim.GetCurrentAnimatorStateInfo(0).length);
+        float time = Time.deltaTime;
+        OnObjectDestroyed(1f);
     }
 
     public void OnWake()

@@ -219,7 +219,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 341951467501359461}
   - {fileID: 5901298927942159458}
@@ -509,6 +509,7 @@ MonoBehaviour:
   invulnTime: 1
   invulnTimer: 0
   stats: {fileID: 11400000, guid: 2e072a06ab923499ea11f666e3d8d992, type: 2}
+  hitSound: {fileID: 0}
 --- !u!82 &5764425958211841503
 AudioSource:
   m_ObjectHideFlags: 0
@@ -616,6 +617,7 @@ GameObject:
   - component: {fileID: 5901298927942159458}
   - component: {fileID: 5960926147129782639}
   - component: {fileID: 6925339463245983281}
+  - component: {fileID: 6047488463183760880}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -692,6 +694,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 2e072a06ab923499ea11f666e3d8d992, type: 2}
   vcam: {fileID: 5960926147129782639}
+--- !u!114 &6047488463183760880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6401993392669114559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BoundingShape2D: {fileID: 0}
+  m_Damping: 0.5
+  m_MaxWindowSize: -1
 --- !u!1 &8648203706535959229
 GameObject:
   m_ObjectHideFlags: 0
@@ -892,6 +909,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   rb: {fileID: 5699407635460038963}
+  playerAnimation: {fileID: 0}
 --- !u!114 &6330930076289307292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -907,6 +925,8 @@ MonoBehaviour:
   anim: {fileID: 1964197899291075769}
   sr: {fileID: 0}
   audioSource: {fileID: 0}
+  currentState: 0
+  prevState: 0
   IDLEU: -753333800
   RUNU: -971469989
   IDLED: 1146044812
@@ -916,8 +936,6 @@ MonoBehaviour:
   ATTACKS: -146429164
   ATTACKU: -1445317060
   ATTACKD: -935649126
-  walkIndex: 0
-  walkIndexSize: 0
 --- !u!82 &120252094153780800
 AudioSource:
   m_ObjectHideFlags: 0
