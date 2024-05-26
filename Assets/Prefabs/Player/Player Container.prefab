@@ -94,8 +94,8 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: 2e072a06ab923499ea11f666e3d8d992, type: 2}
   swordSwing: {fileID: 0}
   playerAnimation: {fileID: 0}
-  attackCooldown: 1
-  _knockbackForce: {x: 0.8, y: 0.8}
+  attackCooldown: 0.4
+  _knockbackForce: {x: 0.5, y: 0.5}
 --- !u!82 &9172416165350383587
 AudioSource:
   m_ObjectHideFlags: 0
@@ -634,7 +634,7 @@ Transform:
   m_GameObject: {fileID: 6401993392669114559}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.392, y: -1.797, z: -10}
+  m_LocalPosition: {x: -0.3920002, y: -1.7969999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

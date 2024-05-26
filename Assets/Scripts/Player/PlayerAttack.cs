@@ -11,8 +11,8 @@ public class PlayerAttack : MonoBehaviour, IAttack
     [SerializeField] private PlayerAnimation playerAnimation;
 
     [Header("Attack Variables")]
-    [SerializeField] private float attackCooldown = 1f;
-    [SerializeField] private Vector2 _knockbackForce = new Vector2(1f, 1f);
+    [SerializeField] private float attackCooldown = 0.4f;
+    [SerializeField] private Vector2 _knockbackForce = new Vector2(.5f, .5f);
     private float lastAttackTime = 0f;
 
     public int Damage { get => stats.Damage; set => stats.Damage = value; }
