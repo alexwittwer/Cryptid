@@ -30,12 +30,14 @@ public class NPCHitbox : MonoBehaviour, IDamageable
         audioSource = GetComponent<AudioSource>();
     }
 
+
     private void Update()
     {
         if (health <= 0)
         {
             movement.Immobilize();
             animateSprite.OnDeath();
+            Destroy(gameObject);
         }
 
         if (invulnerable && lastHitTime > 0)
