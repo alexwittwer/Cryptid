@@ -9,6 +9,7 @@ public class NPCMovement : MonoBehaviour
     public SpriteRenderer sr;
     public NavMeshAgent agent;
     public IAnimateSprite anim;
+    public Rigidbody2D rb;
 
     [Header("Movement Variables")]
     public Vector3 startingPosition;
@@ -23,6 +24,7 @@ public class NPCMovement : MonoBehaviour
     private float randomTimer = 0f;
     public float SleepTime = 15f;
     public float sleepTimer = 0f;
+    public Vector3 lastPosition;
 
     void Start()
     {
@@ -30,6 +32,7 @@ public class NPCMovement : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<IAnimateSprite>();
         agent = GetComponent<NavMeshAgent>();
+        rb = GetComponent<Rigidbody2D>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         startingPosition = transform.position;
@@ -38,6 +41,8 @@ public class NPCMovement : MonoBehaviour
     public void Immobilize()
     {
         CanMove = false;
+        transform.position = lastPosition;
+        rb.velocity = Vector2.zero;
         agent.stoppingDistance = 0;
         agent.velocity = Vector3.zero;
     }
@@ -45,7 +50,13 @@ public class NPCMovement : MonoBehaviour
     void Update()
     {
         if (!CanMove)
+        {
+            transform.position = lastPosition;
             return;
+        }
+
+        // saves last position
+        lastPosition = transform.position;
 
         if (RandomPositionTimer > 0)
         {
