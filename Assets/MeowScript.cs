@@ -8,6 +8,7 @@ public class MeowScript : MonoBehaviour
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private AudioSource audioSource;
 
+    private bool canMeow = false;
     private float time = 0f;
     private float meowTime = 1f;
 
@@ -23,7 +24,7 @@ public class MeowScript : MonoBehaviour
         if (InputManager.Interact && time >= meowTime)
         {
             time = 0;
-            AudioManager.Instance.PlaySFX(audioSource.clip, .6f);
+            if (canMeow) AudioManager.Instance.PlaySFX(audioSource.clip, .6f);
         }
         else
         {
@@ -36,6 +37,7 @@ public class MeowScript : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             sr.enabled = false;
+            canMeow = false;
         }
     }
 
@@ -44,6 +46,12 @@ public class MeowScript : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             sr.enabled = true;
+            canMeow = true;
         }
+    }
+
+    private void PlayMeow()
+    {
+
     }
 }
